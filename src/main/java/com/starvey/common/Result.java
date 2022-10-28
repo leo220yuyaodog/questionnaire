@@ -1,6 +1,5 @@
 package com.starvey.common;
 
-
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class Result implements Serializable {
 
-    private int code; // 200是正常，非200表示异常
+    private int code; // 200 正常，非200表示异常
     private String msg;
     private Object data;
 
