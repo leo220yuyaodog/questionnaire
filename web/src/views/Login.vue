@@ -55,6 +55,8 @@
 
 <script>
 
+    import * as Setting from "@/Setting";
+
     export default {
         name: "Login",
         data() {
@@ -77,26 +79,35 @@
             }
         },
         methods: {
-
-            submitLogin() {
-                this.$refs.loginForm.validate((valid) => {
-                    if (valid) {
-                        this.axios.post('/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then((res) => {
-                            this.loading = false;
-                            if(res.data==='wrong'){
-                                this.$message.error({message:'账户名或密码输入错误！',duration:1000});
-                            }
-                            else if(res.data==='success'){
-                                this.$message.success({message:'登录成功！',duration:1000});
-                                this.$router.replace('/collection');
-                                this.$store.commit('login',this.loginForm.username);
-                            }
-                        })
-                    } else {
-                        return false;
-                    }
-                });
-            },
+          login() {
+            Setting.signin().then((res) => {
+              if (res.status === "ok") {
+                Setting.showMessage("success", "Logged in successfully");
+                Setting.goToLink("/");
+              } else {
+                Setting.showMessage("error","登录失败");
+              }
+            });
+          },
+          submitLogin() {
+              this.$refs.loginForm.validate((valid) => {
+                  if (valid) {
+                      this.axios.post('/api/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then((res) => {
+                          this.loading = false;
+                          if(res.data==='wrong'){
+                              this.$message.error({message:'账户名或密码输入错误！',duration:1000});
+                          }
+                          else if(res.data==='success'){
+                              this.$message.success({message:'登录成功！',duration:1000});
+                              this.$router.replace('/collection');
+                              this.$store.commit('login',this.loginForm.username);
+                          }
+                      })
+                  } else {
+                      return false;
+                  }
+              });
+          },
             submitRegister() {
                 this.$refs.registerForm.validate((valid) => {
                     if (valid) {

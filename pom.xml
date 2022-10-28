@@ -91,10 +91,11 @@
             <version>5.8.9</version>
         </dependency>
 
+        <!-- Casdoor https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.9</version>
+            <groupId>org.casbin</groupId>
+            <artifactId>casdoor-spring-boot-starter</artifactId>
+            <version>1.5.1</version>
         </dependency>
 
     </dependencies>
