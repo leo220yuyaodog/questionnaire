@@ -28,7 +28,7 @@ CREATE TABLE `answer`  (
   `question_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `question_description` text CHARACTER SET utf8 COLLATE utf8_bin,
   `order` int(0) DEFAULT NULL,
-  `answerContent` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `answer_content` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 

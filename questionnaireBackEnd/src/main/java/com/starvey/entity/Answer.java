@@ -48,7 +48,7 @@ public class Answer implements Serializable {
     /**
      * 
      */
-    private String answercontent;
+    private String answerContent;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
