@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starvey.mapper.TenantMapper">
+
+    <resultMap id="BaseResultMap" type="com.starvey.entity.Tenant">
+            <result property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="cost" column="cost" jdbcType="DOUBLE"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cost,is_deleted
+    </sql>
+</mapper>

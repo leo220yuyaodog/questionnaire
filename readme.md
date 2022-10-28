@@ -1,8 +1,8 @@
 # 问卷调查网站
 
 - 技术栈：
-  - 前端：Vue+Element-ui
-  - 后端：Springboot+Hibernate+MySQL
+  - 前端：Vue + Element-ui
+  - 后端：Springboot + Mybatis-Plus + MySQL
 
 - feature：
   - 基础的用户状态管理和安全管理

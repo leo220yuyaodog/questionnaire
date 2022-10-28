@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starvey.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.starvey.entity.Question">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="questionnaireId" column="questionnaire_id" jdbcType="VARCHAR"/>
+            <result property="order" column="order" jdbcType="INTEGER"/>
+            <result property="isNecessary" column="is_necessary" jdbcType="TINYINT"/>
+            <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
+            <result property="questionDescription" column="question_description" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,questionnaire_id,order,
+        is_necessary,question_type,question_description,
+        content
+    </sql>
+</mapper>
