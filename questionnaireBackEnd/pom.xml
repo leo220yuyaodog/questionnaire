@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>2.7.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.starvey</groupId>
     <artifactId>starvey</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>questionnaire</name>
+    <name>starvey</name>
     <description>questionnaireBackEnd</description>
 
     <properties>
@@ -20,6 +20,7 @@
 
     <dependencies>
 
+        <!--暂时没用 spring security-->
         <!--<dependency>-->
         <!--    <groupId>org.springframework.boot</groupId>-->
         <!--    <artifactId>spring-boot-starter-security</artifactId>-->
@@ -42,15 +43,10 @@
             </exclusions>
         </dependency>
 
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.boot</groupId>-->
-        <!--    <artifactId>spring-boot-starter-data-jpa</artifactId>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.2.14</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.9</version>
         </dependency>
 
         <dependency>
