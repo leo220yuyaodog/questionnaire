@@ -83,7 +83,7 @@ CREATE TABLE `questionnaire`  (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
   `status` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `question_num` int NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
   `start_time` datetime NULL DEFAULT NULL,
