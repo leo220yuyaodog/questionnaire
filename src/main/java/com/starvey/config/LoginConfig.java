@@ -22,7 +22,12 @@ public class LoginConfig implements WebMvcConfigurer {
                 "/callback",
                 "/**/*.html",
                 "/**/*.js",
-                "/**/*.css"
+                "/**/*.css",
+                "/swagger**/**",    // 开放 swagger 相关接口
+                "/webjars/**",
+                "/v3/**",
+                "/doc.html",
+                "/test"             // 开放测试接口
         );
     }
 }

@@ -11,7 +11,7 @@
             <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
             <result property="questionDescription" column="question_description" jdbcType="VARCHAR"/>
             <result property="order" column="order" jdbcType="INTEGER"/>
-            <result property="answercontent" column="answerContent" jdbcType="VARCHAR"/>
+            <result property="answerContent" column="answer_content" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
