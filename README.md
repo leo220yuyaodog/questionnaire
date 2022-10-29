@@ -17,6 +17,7 @@
 - Java 8,11 
 - Maven
 - node.js 16+
+- yarn 或 npm
 - mysql
 ### step2: 启动后端
 
@@ -43,14 +44,20 @@ spring:
 位于 `src/main/java/com/starvey/QuestionnaireApplication.java`
 
 ### step3: 启动前端
+yarn 换成 npm 也可以
+1. 进入web目录
 
-1. 安装依赖
+```shell
+cd web
+```
+
+2. 安装依赖
 
 ```shell
 yarn install 
 ```
 
-2. 启动前端 
+3启动前端 
 
 ```shell
 yarn start
