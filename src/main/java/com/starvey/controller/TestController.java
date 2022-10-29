@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 public class TestController {
 
@@ -19,17 +21,6 @@ public class TestController {
     @GetMapping("/test")
     public Result test() {
         System.out.println("/test 访问成功");
-        User user = new User();
-        String id = IdUtil.randomUUID();
-        user.setId(id);
-        userService.save(user);
-
-        for (User user1 : userService.list()) {
-            System.out.println(user1);
-        }
-
-        userService.removeById(id);
-
-        return  Result.success(user);
+        return Result.success("/test 访问成功", new Date());
     }
 }

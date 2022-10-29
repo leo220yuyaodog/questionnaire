@@ -18,16 +18,16 @@ public class QuestionnaireController {
 
     @ApiOperation("获取指定页大小下的指定页的问卷列表")
     @GetMapping("/questionnaire/list")
-    public Result getQuestionnaires(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
+    public Result getQuestionnaireList(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
         Page<Questionnaire> page = questionnaireService.page(new Page<>(pageNumber, pageSize));
         return Result.success(page);
     }
 
     @ApiOperation("获取指定id的问卷")
     @GetMapping("/questionnaire/{id}")
-    public Result getQuestionnaire(@PathVariable(name = "id") String id) {
+    public Result getQuestionnaireById(@PathVariable(name = "id") String id) {
         Questionnaire questionnaire = questionnaireService.getById(id);
-        return questionnaire != null ? Result.success(questionnaire) : Result.fail("获取指定问卷失败");
+        return questionnaire != null ? Result.success(questionnaire) : Result.fail("获取指定问卷失败，不存在该id的问卷");
     }
 
     @ApiOperation("添加问卷")
@@ -46,7 +46,8 @@ public class QuestionnaireController {
 
     @ApiOperation("删除指定id的问卷")
     @PostMapping("/questionnaire/delete")
-    public Result removeQuestionnaire(@RequestBody String id) {
+    public Result deleteQuestionnaire(@RequestBody String id) {
+        //TODO: 删除下属问卷
         boolean b = questionnaireService.removeById(id);
         return b ? Result.success("删除指定问卷成功") : Result.fail("删除指定问卷失败");
     }
