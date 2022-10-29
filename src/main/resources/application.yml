@@ -17,8 +17,8 @@ server:
 
 mybatis-plus:
   type-aliases-package: com.starvey.entity
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 casdoor:
   endpoint: https://bit.windsparkle.top/

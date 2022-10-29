@@ -1,5 +1,6 @@
 package com.starvey.controller;
 
+import cn.hutool.core.util.IdUtil;
 import com.starvey.common.Result;
 import com.starvey.entity.User;
 import com.starvey.service.UserService;
@@ -19,17 +20,16 @@ public class TestController {
     public Result test() {
         System.out.println("/test 访问成功");
         User user = new User();
-        user.setId("1");
+        String id = IdUtil.randomUUID();
+        user.setId(id);
         userService.save(user);
-        for (User user1 : userService.list()) {
-            System.out.println(user1);
-        }
-
-        userService.removeById("1");
 
         for (User user1 : userService.list()) {
             System.out.println(user1);
         }
+
+        userService.removeById(id);
+
         return  Result.success(user);
     }
 }
