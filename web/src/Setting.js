@@ -5,6 +5,7 @@ export let CasdoorSdk;
 
 export function showMessage(type, text) {
     if (type === "success") {
+        // eslint-disable-next-line no-empty
     } else if (type === "error") {
     }
 }
