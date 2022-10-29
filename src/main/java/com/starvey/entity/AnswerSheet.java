@@ -14,28 +14,28 @@ import lombok.Data;
 @Data
 public class AnswerSheet implements Serializable {
     /**
-     * 
+     * 答卷自身id
      */
     @TableId
     private String id;
 
     /**
-     * 
+     * 答卷对应的问卷id
      */
     private String questionnaireId;
 
     /**
-     * 
+     * 答卷的ip地址
      */
     private String ip;
 
     /**
-     * 
+     * 答卷完成填写时间（提交的时间）
      */
     private Date fillTime;
 
     /**
-     * 
+     * 逻辑删除列，不用管
      */
     @TableLogic
     private Integer isDeleted;

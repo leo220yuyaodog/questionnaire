@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `answer`;
 CREATE TABLE `answer`  (
   `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `question_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `questionnaire_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `answer_sheet_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `question_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
   `question_description` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
-  `order` int NULL DEFAULT NULL,
+  `order` int NULL DEFAULT NULL,2
   `answer_content` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = DYNAMIC;
