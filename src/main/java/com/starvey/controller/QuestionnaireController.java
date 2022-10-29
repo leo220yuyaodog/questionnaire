@@ -25,9 +25,9 @@ public class QuestionnaireController {
 
     @ApiOperation("获取指定id的问卷")
     @GetMapping("/questionnaire/{id}")
-    public Result getQuestionnaireById(@PathVariable(name = "id") String id) {
+    public Result getQuestionnaire(@PathVariable(name = "id") String id) {
         Questionnaire questionnaire = questionnaireService.getById(id);
-        return questionnaire != null ? Result.success(questionnaire) : Result.fail("获取指定问卷失败，不存在该id的问卷");
+        return questionnaire != null ? Result.success(questionnaire) : Result.fail("获取指定问卷失败");
     }
 
     @ApiOperation("添加问卷")
@@ -47,7 +47,6 @@ public class QuestionnaireController {
     @ApiOperation("删除指定id的问卷")
     @PostMapping("/questionnaire/delete")
     public Result deleteQuestionnaire(@RequestBody String id) {
-        //TODO: 删除下属问卷
         boolean b = questionnaireService.removeById(id);
         return b ? Result.success("删除指定问卷成功") : Result.fail("删除指定问卷失败");
     }
