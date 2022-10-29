@@ -1,8 +1,11 @@
 package com.starvey.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.casbin.casdoor.entity.CasdoorUser;
 import org.casbin.casdoor.exception.CasdoorAuthException;
 import org.casbin.casdoor.service.CasdoorAuthService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,12 +16,14 @@ import javax.servlet.http.HttpSession;
  * @Author Leo220yuyaodog
  */
 @RestController
+@Api(tags="Account")
 public class AccountController {
 
     @Resource
     private CasdoorAuthService casdoorAuthService;
 
-    @RequestMapping("login")
+    @PostMapping("login")
+    @ApiOperation("login")
     public String login(){
        return "";
     }
@@ -37,7 +42,8 @@ public class AccountController {
         return "OK";
     }
 
-    @RequestMapping("logout")
+    @PostMapping("logout")
+    @ApiOperation("logout")
     public String logout(HttpSession session) {
         session.setAttribute("casdoorUser", null);
         return "OK";
