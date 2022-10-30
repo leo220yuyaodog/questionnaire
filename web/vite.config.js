@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { TDesignResolver } from 'unplugin-vue-components/resolvers';
+import {ElementPlusResolver, TDesignResolver} from 'unplugin-vue-components/resolvers';
 
 export default ({ mode }) => {
   const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd());
@@ -17,6 +17,7 @@ export default ({ mode }) => {
           TDesignResolver({
             library: 'vue-next',
           }),
+          ElementPlusResolver(),
         ],
       }),
       Components({
@@ -24,6 +25,7 @@ export default ({ mode }) => {
           TDesignResolver({
             library: 'vue-next',
           }),
+          ElementPlusResolver(),
         ],
       }),
     ],

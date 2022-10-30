@@ -3,7 +3,7 @@
     <div v-if="$route.name === 'fillin'">
       <router-view></router-view>
     </div>
-    <div v-else style="height: 100%">
+    <div v-else class="common-layout">
       <el-backtop></el-backtop>
       <el-container>
         <el-header>

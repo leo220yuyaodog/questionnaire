@@ -36,8 +36,8 @@
 </template>
 
 <script>
-    import QuestionnaireCard from "./QuestionnaireCard";
-    import TypeChooseBox from "./TypeChooseBox";
+    import QuestionnaireCard from "./QuestionnaireCard.vue";
+    import TypeChooseBox from "./TypeChooseBox.vue";
 
     export default {
         name: "Collection",
