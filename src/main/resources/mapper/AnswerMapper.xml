@@ -7,16 +7,17 @@
     <resultMap id="BaseResultMap" type="com.starvey.entity.Answer">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="questionId" column="question_id" jdbcType="VARCHAR"/>
-            <result property="questionnaireId" column="questionnaire_id" jdbcType="VARCHAR"/>
+            <result property="answerSheetId" column="answer_sheet_id" jdbcType="VARCHAR"/>
             <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
             <result property="questionDescription" column="question_description" jdbcType="VARCHAR"/>
             <result property="order" column="order" jdbcType="INTEGER"/>
             <result property="answerContent" column="answer_content" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,question_id,questionnaire_id,
+        id,question_id,answer_sheet_id,
         question_type,question_description,order,
-        answerContent
+        answer_content,is_deleted
     </sql>
 </mapper>

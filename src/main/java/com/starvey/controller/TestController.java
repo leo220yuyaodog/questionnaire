@@ -1,8 +1,6 @@
 package com.starvey.controller;
 
-import cn.hutool.core.util.IdUtil;
 import com.starvey.common.Result;
-import com.starvey.entity.User;
 import com.starvey.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

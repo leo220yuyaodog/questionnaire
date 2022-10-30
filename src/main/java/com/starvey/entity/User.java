@@ -6,7 +6,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 我们目前把管理员，租户（租户管理员），用户都存在该表中。后续可能答者也在该表。都称为User
+ * 
  * @TableName user
  */
 @TableName(value ="user")
@@ -54,7 +54,7 @@ public class User implements Serializable {
     private String avatar;
 
     /**
-     * 逻辑删除列，不用管
+     *  逻辑删除列
      */
     @TableLogic
     private Integer isDeleted;

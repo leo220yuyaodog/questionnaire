@@ -12,11 +12,12 @@
             <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
             <result property="questionDescription" column="question_description" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,questionnaire_id,order,
         is_necessary,question_type,question_description,
-        content
+        content,is_deleted
     </sql>
 </mapper>
