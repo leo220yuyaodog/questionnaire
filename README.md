@@ -66,7 +66,7 @@ npm install
 3启动前端 
 
 ```shell
-npm dev
+npm start
 ```
 
 打开浏览器，访问 `localhost:3000`
