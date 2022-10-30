@@ -2,12 +2,15 @@ package com.starvey.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starvey.common.Result;
+import com.starvey.entity.Question;
 import com.starvey.entity.Questionnaire;
 import com.starvey.service.QuestionnaireService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags = "问卷管理")
@@ -49,5 +52,12 @@ public class QuestionnaireController {
     public Result deleteQuestionnaire(@RequestBody String id) {
         boolean b = questionnaireService.removeById(id);
         return b ? Result.success("删除指定问卷成功") : Result.fail("删除指定问卷失败");
+    }
+
+    @ApiOperation("根据问卷id查询相应问题")
+    @PostMapping("question/listquestion")
+    public Result listQuestion(@RequestBody String id) {
+        List<Question> list = questionnaireService.listById(id);
+        return Result.success(list);
     }
 }

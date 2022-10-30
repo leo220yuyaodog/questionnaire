@@ -26,6 +26,7 @@ public class Question implements Serializable {
     /**
      * 问题在问卷中的顺序（小的在前，大的在后）
      */
+    @TableField("`order`")
     private Integer order;
 
     /**
