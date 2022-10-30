@@ -1,9 +1,7 @@
 package com.starvey.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import lombok.Data;
 
@@ -14,32 +12,6 @@ import lombok.Data;
 @TableName(value ="question")
 @Data
 public class Question implements Serializable {
-
-    // 单选题
-    public static final String QUES_TYPE_SINGLE_CHECK = "single_check";
-    // 多选题
-    public static final String QUES_TYPE_MULTI_CHECK = "multi_check";
-
-    //
-    //
-    //                         value: 'single_line_text',
-    //                        label: '单行文本'
-    //                    }, {
-    //                        value: 'multi_line_text',
-    //                        label: '多行文本'
-    //                    }, {
-    //                        value: 'number',
-    //                        label: '数字'
-    //                    }, {
-    //                        value: 'grade',
-    //                        label: '评分'
-    //                    }, {
-    //                        value: 'date',
-    //                        label: '日期'
-    //                    }, {
-    //                        value: 'text_description',
-    //                        label: '文本描述'
-
     /**
      * 问题自身的id
      */
@@ -62,13 +34,12 @@ public class Question implements Serializable {
     private Integer isNecessary;
 
     /**
-     * TODO: 有哪些问题
-     * 问题类型
+     * 问题的类型
      */
     private String questionType;
 
     /**
-     * 问题描述（也就是“问题”）
+     * 问题的描述
      */
     private String questionDescription;
 
@@ -76,6 +47,12 @@ public class Question implements Serializable {
      * 问题内容。以json字符串存储
      */
     private String content;
+
+    /**
+     * 逻辑删除列
+     */
+    @TableLogic
+    private Integer isDeleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

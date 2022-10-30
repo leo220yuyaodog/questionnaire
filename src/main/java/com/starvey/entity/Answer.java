@@ -1,9 +1,7 @@
 package com.starvey.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import lombok.Data;
 
@@ -36,7 +34,7 @@ public class Answer implements Serializable {
     private String questionType;
 
     /**
-     * 问题的描述（也就是对应问题的描述，又记了一遍）
+     * 问题的描述（也就是对应问题的描述，又存了一遍）
      */
     private String questionDescription;
 
@@ -49,6 +47,12 @@ public class Answer implements Serializable {
      * 答案内容。以json字符串存储
      */
     private String answerContent;
+
+    /**
+     * 逻辑删除列
+     */
+    @TableLogic
+    private Integer isDeleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

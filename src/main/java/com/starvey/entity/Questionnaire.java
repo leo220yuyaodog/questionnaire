@@ -14,18 +14,18 @@ import lombok.Data;
 @Data
 public class Questionnaire implements Serializable {
     /**
-     * 自身id
+     * 问卷自身id
      */
     @TableId
     private String id;
 
     /**
-     * 所属用户的id
+     *  所属用户的id
      */
     private String userId;
 
     /**
-     * 所属租户的id（也就是用户的租户的id）
+     * 所属租户的id（也就是所属用户的租户的id）
      */
     private String tenantId;
 
@@ -40,13 +40,11 @@ public class Questionnaire implements Serializable {
     private String description;
 
     /**
-     * TODO: 有哪些状态
-     * 问卷的状态（）
+     * 问卷的状态
      */
     private String status;
 
     /**
-     * TODO: 有哪些类型
      * 问卷的类型
      */
     private String type;
@@ -82,7 +80,7 @@ public class Questionnaire implements Serializable {
     private Integer fillCount;
 
     /**
-     * 逻辑删除列，不用管
+     * 逻辑删除列
      */
     @TableLogic
     private Integer isDeleted;
