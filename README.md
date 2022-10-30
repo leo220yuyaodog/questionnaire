@@ -1,10 +1,12 @@
 ## 问卷调查网站
 
 - 技术栈：
-  - 前端：Vue + Element-ui
+  
+  - 前端：Vue3 + Element-Plus
   - 后端：Springboot + Mybatis-Plus + MySQL
 
 - feature：
+  
   - Swagger3.0 API文档 
   - 基础的用户状态管理和安全管理
   - 响应式布局
@@ -19,7 +21,8 @@
 - node.js 16+
 - yarn 或 npm
 - mysql
-### step2: 启动后端
+  
+  ### step2: 启动后端
 
 #### 创建数据库
 
@@ -41,10 +44,13 @@ spring:
 ```
 
 #### 启动 QuestionnaireApplication.java
+
 位于 `src/main/java/com/starvey/QuestionnaireApplication.java`
 
 ### step3: 启动前端
+
 yarn 换成 npm 也可以
+
 1. 进入web目录
 
 ```shell
@@ -54,13 +60,13 @@ cd web
 2. 安装依赖
 
 ```shell
-yarn install 
+npm install 
 ```
 
 3启动前端 
 
 ```shell
-yarn start
+npm dev
 ```
 
-打开浏览器，访问 `localhost:80`
+打开浏览器，访问 `localhost:3000`

@@ -19,7 +19,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
         if (user != null) {
             return true;
         }
-        response.sendRedirect(request.getContextPath() + "toLogin");
+        response.sendRedirect(request.getContextPath() + "/");
         return false;
     }
 }

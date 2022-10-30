@@ -1,2 +1,5 @@
+dist
 node_modules
-build
+!.prettierrc.js
+components.d.ts
+auto-imports.d.ts
