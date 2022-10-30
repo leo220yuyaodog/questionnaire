@@ -41,6 +41,7 @@ public class Answer implements Serializable {
     /**
      * 答案在答卷中的顺序（小的在前，大的在后）
      */
+    @TableField("`order`")
     private Integer order;
 
     /**
