@@ -3,6 +3,8 @@ package com.starvey.service;
 import com.starvey.entity.Question;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author Song
 * @description 针对表【question】的数据库操作Service
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface QuestionService extends IService<Question> {
 
+    public List<Question> getQuestionsByQuestionnaireId(String id);
 }

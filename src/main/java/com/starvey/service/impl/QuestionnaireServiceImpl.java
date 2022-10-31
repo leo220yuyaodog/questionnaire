@@ -20,12 +20,11 @@ import java.util.List;
 @Service
 public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Questionnaire>
         implements QuestionnaireService{
-    @Autowired
-    QuestionService questionService;
+
     @Override
-    public List<Question> listById(String id) {
-        QueryWrapper<Question> wrapper=new QueryWrapper<Question>().eq("questionnaire_id",id);
-        List<Question> list = questionService.list(wrapper);
+    public List<Questionnaire> getQuestionnairesByUserId(String id) {
+        QueryWrapper<Questionnaire> queryWrapper = new QueryWrapper<Questionnaire>().eq("user_id", id);
+        List<Questionnaire> list = this.list(queryWrapper);
         return list;
     }
 }

@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2022-10-30 13:48:23
 */
 public interface TenantService extends IService<Tenant> {
-
+    public boolean addQuestionnaireTo(String id);
 }
