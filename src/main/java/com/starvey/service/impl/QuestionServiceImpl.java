@@ -6,6 +6,7 @@ import com.starvey.entity.Question;
 import com.starvey.service.QuestionService;
 import com.starvey.mapper.QuestionMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,10 +20,21 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     implements QuestionService{
 
     @Override
-    public List<Question> getQuestionsByQuestionnaireId(String id) {
-        QueryWrapper<Question> wrapper = new QueryWrapper<Question>().eq("questionnaire_id", id);
+    @Transactional(readOnly = true)
+    public List<Question> getQuestionsByQuestionnaireId(String questionnaireId) {
+        QueryWrapper<Question> wrapper = new QueryWrapper<Question>().eq("questionnaire_id", questionnaireId);
         List<Question> list = this.list(wrapper);
         return list;
+    }
+
+    @Override
+    @Transactional
+    public void removeQuestionsByQuestionnaireId(String questionnaireId) {
+        QueryWrapper<Question> wrapper = new QueryWrapper<Question>().eq("questionnaire_id", questionnaireId);
+        List<Question> list = this.list(wrapper);
+        for (Question question : list) {
+            this.removeById(question);
+        }
     }
 }
 

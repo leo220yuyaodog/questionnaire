@@ -2,15 +2,14 @@ package com.starvey.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starvey.common.Result;
-import com.starvey.entity.Question;
 import com.starvey.entity.Questionnaire;
-import com.starvey.entity.Tenant;
 import com.starvey.service.QuestionService;
 import com.starvey.service.QuestionnaireService;
 import com.starvey.service.TenantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +21,14 @@ public class QuestionnaireController {
     @Autowired
     private TenantService tenantService;
     @Autowired
+    private QuestionService questionService;
+    @Autowired
     private QuestionnaireService questionnaireService;
 
-    @ApiOperation("获取指定页大小下的指定页的问卷列表")
-    @GetMapping("/questionnaire/list")
-    public Result getQuestionnaireList(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
-        Page<Questionnaire> page = questionnaireService.page(new Page<>(pageNumber, pageSize));
+    @ApiOperation("根据用户id查询下属所有问卷（分页）")
+    @GetMapping("/questionnaire")
+    public Result getQuestionnaireOfUser(@RequestParam String userId, @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam Integer pageSize) {
+        Page<Questionnaire> page = questionnaireService.getQuestionnairesByUserId(userId, pageNumber, pageSize);
         return Result.success(page);
     }
 
@@ -35,24 +36,20 @@ public class QuestionnaireController {
     @GetMapping("/questionnaire/{id}")
     public Result getQuestionnaire(@PathVariable(name = "id") String id) {
         Questionnaire questionnaire = questionnaireService.getById(id);
-        return questionnaire != null ? Result.success(questionnaire) : Result.fail("获取指定问卷失败");
+        return Result.success(questionnaire);
     }
 
-    @ApiOperation("根据用户id查询下属所有问卷")
-    @GetMapping("/questionnaire")
-    public Result getQuestionnaireOfUser(@RequestParam() String userId) {
-        List<Questionnaire> list = questionnaireService.getQuestionnairesByUserId(userId);
-        return Result.success(list);
-    }
 
-    @ApiOperation("添加问卷")
+    @ApiOperation("新增一个空的问卷")
     @PostMapping("/questionnaire/add")
+    @Transactional
     public Result addQuestionnaire(@RequestBody Questionnaire questionnaire) {
-        // TODO: 事务
-        // 保存问卷
-        boolean b = questionnaireService.save(questionnaire);
-        // 更新租户问卷计数和计费
+        // TODO: 错误处理，全局异常处理
+        // 1. 添加问卷
+        questionnaireService.save(questionnaire);
+        // 2. 更新租户问卷计数和计费
         tenantService.addQuestionnaireTo(questionnaire.getTenantId());
+        // 3. 返回结果
         return Result.success(questionnaire);
     }
 
@@ -63,11 +60,16 @@ public class QuestionnaireController {
         return b ? Result.success(questionnaire) : Result.fail("更新指定问卷失败");
     }
 
-    @ApiOperation("删除指定id的问卷")
+    @ApiOperation("删除指定id的问卷和其下属问题")
     @PostMapping("/questionnaire/delete")
+    @Transactional
     public Result deleteQuestionnaire(@RequestBody String id) {
-        boolean b = questionnaireService.removeById(id);
-        return b ? Result.success("删除指定问卷成功") : Result.fail("删除指定问卷失败");
+        // 1. 删除问卷
+        questionnaireService.removeById(id);
+        // 2. 删除下属问题
+        questionService.removeQuestionsByQuestionnaireId(id);
+        // 3. 返回结果
+        return Result.success("删除指定问卷成功");
     }
 
 }
