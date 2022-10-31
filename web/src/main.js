@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 
 import App from './App.vue';
 import router from './router';
@@ -7,6 +7,10 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/assets/main.css';
 import '@/style/index.less';
+
+import api from "./api/index";
+
+Vue.prototype.$api = api
 
 const config = {
   serverUrl: 'https://bit.windsparkle.top/',
