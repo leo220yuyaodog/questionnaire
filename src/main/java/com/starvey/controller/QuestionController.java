@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Api(tags = "问题管理")
 @RestController
@@ -21,7 +23,7 @@ public class QuestionController {
      *
      */
     @ApiOperation("获取指定页大小下的指定页的问题列表")
-    @GetMapping("question/list")
+    @GetMapping("/question/list")
     public Result getQuestionList(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
         Page<Question> page = questionService.page(new Page<>(pageNumber, pageSize));
         return Result.success(page);
@@ -32,6 +34,13 @@ public class QuestionController {
     public Result getQuestion(@PathVariable(name = "id") String id) {
         Question question = questionService.getById(id);
         return question != null ? Result.success(question) : Result. fail("获取问题失败，不存在该id的问题");
+    }
+
+    @ApiOperation("根据问卷id查询下属所有问题")
+    @GetMapping("/question")
+    public Result getQuestions(@RequestParam String id) {
+        List<Question> list = questionService.getQuestionsByQuestionnaireId(id);
+        return Result.success(list);
     }
 
     @ApiOperation("添加问题")
@@ -49,7 +58,7 @@ public class QuestionController {
     }
 
     @ApiOperation("删除指定id的问题")
-    @PostMapping("question/delete")
+    @PostMapping("/question/delete")
     public Result deleteQuestion(@RequestBody String id) {
         boolean b = questionService.removeById(id);
         return b ? Result.success("删除指定问题成功") : Result.fail("删除指定问题失败");

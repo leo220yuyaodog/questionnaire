@@ -1,5 +1,7 @@
 package com.starvey.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.casbin.casdoor.config.CasdoorConfiguration;
 import org.casbin.casdoor.entity.CasdoorUser;
 import org.casbin.casdoor.service.CasdoorUserService;
@@ -14,6 +16,7 @@ import java.util.List;
 /**
  * @author Yu yaodong
  */
+@Api(tags = "用户管理")
 @RestController
 public class UserController {
 

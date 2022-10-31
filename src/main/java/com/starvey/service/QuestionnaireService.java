@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface QuestionnaireService extends IService<Questionnaire> {
 
-    List<Question> listById(String id);
+    public List<Questionnaire> getQuestionnairesByUserId(String id);
 }

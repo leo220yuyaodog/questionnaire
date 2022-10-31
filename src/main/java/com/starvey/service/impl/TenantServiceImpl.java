@@ -14,7 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant>
     implements TenantService{
-
+    @Override
+    public boolean addQuestionnaireTo(String id) {
+        Tenant tenant = this.getById(id);
+        if (tenant == null) {
+            return false;
+        }
+        tenant.setQuestionnaireCount(tenant.getQuestionnaireCount() + 1);
+        tenant.setCost(tenant.getCost() + 0.5);
+        return true;
+    }
 }
 
 
