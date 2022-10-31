@@ -9,8 +9,10 @@ import com.starvey.service.QuestionnaireService;
 import com.starvey.mapper.QuestionnaireMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Song
@@ -20,12 +22,29 @@ import java.util.List;
 @Service
 public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Questionnaire>
         implements QuestionnaireService{
+    @Autowired
+    QuestionService questionService;
 
     @Override
     public List<Questionnaire> getQuestionnairesByUserId(String id) {
         QueryWrapper<Questionnaire> queryWrapper = new QueryWrapper<Questionnaire>().eq("user_id", id);
         List<Questionnaire> list = this.list(queryWrapper);
         return list;
+    }
+    @Transactional
+    @Override
+    public List<Question> removeall(String id) {
+        Questionnaire questionnaire=this.getById(id);
+        questionnaire.setIsDeleted(1);
+        this.updateById(questionnaire);
+        QueryWrapper<Question> queryWrapper = new QueryWrapper<Question>().eq("questionnaire_id", id);
+        List<Question> lists = questionService.list(queryWrapper);
+        lists.stream().map(list->{
+            list.setIsDeleted(1);
+            questionService.updateById(list);
+            return list;
+        }).collect(Collectors.toList());
+        return lists;
     }
 }
 

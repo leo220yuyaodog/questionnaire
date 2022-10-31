@@ -63,11 +63,11 @@ public class QuestionnaireController {
         return b ? Result.success(questionnaire) : Result.fail("更新指定问卷失败");
     }
 
-    @ApiOperation("删除指定id的问卷")
+    @ApiOperation("删除指定id的问卷及相应问题")
     @PostMapping("/questionnaire/delete")
     public Result deleteQuestionnaire(@RequestBody String id) {
-        boolean b = questionnaireService.removeById(id);
-        return b ? Result.success("删除指定问卷成功") : Result.fail("删除指定问卷失败");
+        List<Question> list = questionnaireService.removeall(id);
+        return  Result.success(list);
     }
 
 }

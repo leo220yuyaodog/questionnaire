@@ -82,7 +82,7 @@ public class Questionnaire implements Serializable {
     /**
      * 逻辑删除列
      */
-    @TableLogic
+//    @TableLogic
     private Integer isDeleted;
 
     @TableField(exist = false)
