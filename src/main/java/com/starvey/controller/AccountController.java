@@ -1,5 +1,6 @@
 package com.starvey.controller;
 
+import com.starvey.common.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.casbin.casdoor.entity.CasdoorUser;
@@ -24,8 +25,8 @@ public class AccountController {
 
     @PostMapping("login")
     @ApiOperation("login")
-    public String login(){
-       return "";
+    public Result login(){
+       return Result.success("success");
     }
 
     @RequestMapping("callback")
@@ -44,8 +45,8 @@ public class AccountController {
 
     @PostMapping("logout")
     @ApiOperation("logout")
-    public String logout(HttpSession session) {
+    public Result logout(HttpSession session) {
         session.setAttribute("casdoorUser", null);
-        return "OK";
+        return Result.success("成功登出");
     }
 }
