@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '星调查',
 
   /**
    * @type {boolean} true | false
@@ -14,3 +14,4 @@ module.exports = {
    */
   sidebarLogo: false
 }
+
