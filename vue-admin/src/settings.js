@@ -14,3 +14,4 @@ module.exports = {
    */
   sidebarLogo: false
 }
+
