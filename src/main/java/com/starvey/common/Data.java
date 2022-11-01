@@ -8,6 +8,6 @@ import lombok.AllArgsConstructor;
 @lombok.Data
 @AllArgsConstructor
 public class Data {
-    private Object data;
+    private Object data1;
     private Object data2;
 }

@@ -21,3 +21,7 @@ export function setUser(user) {
 export function getUser() {
   return Cookies.get('user')
 }
+
+export function removeUser() {
+  return Cookies.remove('user')
+}

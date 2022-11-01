@@ -10,6 +10,14 @@ export function login(data) {
 }
 
 export function getInfo(token) {
+  return request({
+    url: '/vue-admin-template/user/info',
+    method: 'get',
+    params: { token }
+  })
+}
+
+export function getAccount(token) {
   let query = ''
   if (token !== null) {
     query = `?accessToken=${token}`
@@ -28,8 +36,8 @@ export function getUser() {
 }
 
 export function logout() {
-  return request({
-    url: `${ServerUrl}/api/logout`,
-    method: 'post'
-  })
+  return fetch(`${ServerUrl}/api/logout`, {
+    method: 'post',
+    credentials: 'include'
+  }).then((res) => res.json())
 }

@@ -1,8 +1,9 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, setUser } from '@/utils/auth'
+import {getInfo, login, logout} from '@/api/user'
+import { getToken, setToken, removeToken, setUser, getUser, removeUser} from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { CasdoorSdk, ServerUrl } from '@/config'
 import { Message } from 'element-ui'
+import router from '@/router'
 
 const getDefaultState = () => {
   return {
@@ -48,15 +49,22 @@ const actions = {
   signin({ commit }) {
     return new Promise((resolve, reject) => {
       CasdoorSdk.signin(ServerUrl).then((res) => {
-        console.log(res)
-        if (res.status === 'ok') {
-          Message('success', 'Logged in successfully')
+        if (res.msg === 'ok') {
+          Message('Logged in successfully')
           const { data } = res
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
+          commit('SET_TOKEN', data.data1)
+          console.log(data.data1)
+          setToken(data.data1)
+          setUser(data.data2)
           resolve()
+          router.push({
+            path: '/'
+          })
         } else {
-          Message('fail', 'Logged in failed')
+          Message('Logged in failed')
+          router.push({
+            path: '/'
+          })
         }
       }).catch((err) => {
         reject(err)
@@ -64,11 +72,24 @@ const actions = {
     })
   },
 
+  // // get user info  Casdoor 登录
+  // getInfo({ commit, state }) {
+  //   return new Promise((resolve, reject) => {
+  //     const data = JSON.parse(getUser())
+  //     if (!data) {
+  //       return reject('Verification failed, please Login again.')
+  //     }
+  //     console.log(data.name)
+  //     commit('SET_NAME', data.name)
+  //     commit('SET_AVATAR', data.avatar)
+  //     resolve(data)
+  //   })
+  // },
+
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        console.log(response)
         const { data } = response
 
         if (!data) {
@@ -91,6 +112,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
+        removeUser()
         resetRouter()
         commit('RESET_STATE')
         resolve()
@@ -104,6 +126,7 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
+      removeUser()
       commit('RESET_STATE')
       resolve()
     })

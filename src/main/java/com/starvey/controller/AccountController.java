@@ -43,7 +43,7 @@ public class AccountController {
     @PostMapping("logout")
     @ApiOperation("logout")
     public Result logout(HttpSession session) {
-        session.setAttribute("casdoorUser", null);
+        session.removeAttribute("casdoorUser");
         return Result.success("ok","成功登出");
     }
 }
