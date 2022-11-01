@@ -5,6 +5,7 @@ import com.starvey.entity.Tenant;
 import com.starvey.service.TenantService;
 import com.starvey.mapper.TenantMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
 * @author Song
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant>
     implements TenantService{
+
     @Override
+    @Transactional
     public boolean addQuestionnaireTo(String id) {
         Tenant tenant = this.getById(id);
         if (tenant == null) {
@@ -22,6 +25,18 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant>
         }
         tenant.setQuestionnaireCount(tenant.getQuestionnaireCount() + 1);
         tenant.setCost(tenant.getCost() + 0.5);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean addAnswerSheetTo(String id) {
+        Tenant tenant = this.getById(id);
+        if (tenant == null) {
+            return false;
+        }
+        tenant.setAnswerSheetCount(tenant.getAnswerSheetCount() + 1);
+        tenant.setCost(tenant.getCost() + 0.1);
         return true;
     }
 }
