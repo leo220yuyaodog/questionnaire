@@ -11,6 +11,6 @@ public class CorsFilter implements WebMvcConfigurer {
         registry.addMapping("*")
                 .allowedHeaders("*")
                 .allowedMethods("*")
-                .allowedOrigins("http://localhost:80","http://localhost:81");
+                .allowedOrigins("**");
     }
 }
