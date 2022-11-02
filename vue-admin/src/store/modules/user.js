@@ -1,5 +1,6 @@
-import {getInfo, login, logout} from '@/api/user'
-import { getToken, setToken, removeToken, setUser, getUser, removeUser} from '@/utils/auth'
+import { login, logout } from '@/api/user'
+import { getToken, setToken, removeToken, setUser, getUser, removeUser } from '@/utils/auth'
+
 import { resetRouter } from '@/router'
 import { CasdoorSdk, ServerUrl } from '@/config'
 import { Message } from 'element-ui'
@@ -158,7 +159,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
-        // removeUser()
+        removeUser()
         resetRouter()
         commit('RESET_STATE')
         resolve()
