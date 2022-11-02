@@ -3,7 +3,7 @@ import Sdk from 'casdoor-js-sdk'
 export let CasdoorSdk
 export const ServerUrl = 'http://localhost:8080'
 export const AuthConfig = {
-  serverUrl: 'http://localhost:8000', // 本地
+  serverUrl: 'http://bit.windsparkle.top:8000', // 本地
   // serverUrl: 'http://bit.windsparkle.top',
   clientId: 'd523344d9ee6890afacf',
   appName: 'Star-Survey',

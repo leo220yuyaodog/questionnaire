@@ -41,7 +41,8 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+<!--      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>-->
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="goToLogin">Casdoor登录</el-button>
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -122,6 +123,9 @@ export default {
         }
       })
     },
+
+
+    // 跳转到 casdoor 登录页
     goToLogin() {
       window.location.href = CasdoorSdk.getSigninUrl()
     }
