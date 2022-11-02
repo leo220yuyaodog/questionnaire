@@ -1,0 +1,94 @@
+<template>
+  <div>
+    <el-row class="row-head" type="flex" justify="start">
+      <el-col align="start">
+        <el-button
+          class="create-button"
+          type="primary"
+          icon="el-icon-plus"
+          size="small"
+          @click="gotoCreate"
+        >创建问卷
+        </el-button>
+      </el-col>
+      <el-col align="end" class="hidden-xs-only">
+        <TypeChooseBox
+          @changeShow="changeShow"
+        />
+      </el-col>
+    </el-row>
+
+    <el-divider />
+
+    <div class="questionnaire-card-ground">
+      <el-row :gutter="10">
+        <el-col
+          v-for="item in questionnaireList"
+          :key="item.questionnaireId"
+          :xs="12"
+          :sm="6"
+          :md="6"
+          :lg="3"
+          :xl="2"
+        >
+          <QuestionnaireCard
+            class="questionnaire-card"
+            :title="item.title"
+            :id="item.questionnaireId"
+            :status="item.status"
+            :create-time="item.createTime"
+            :end-time="item.endTime"
+            :description="item.description"
+            :fill-count="item.fillCount"
+            v-if="checkedList.indexOf(item.status)!==-1"
+            @deleteQuestionnaire="fetchData"
+          />
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+</template>
+
+<script>
+import QuestionnaireCard from './QuestionnaireCard'
+import TypeChooseBox from './TypeChooseBox'
+
+export default {
+  name: 'Collection',
+  components: { QuestionnaireCard, TypeChooseBox },
+  data: function() {
+    return {
+      questionnaireList: [],
+      checkedList: ['collecting', 'editing', 'closed']
+    }
+  },
+  mounted() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      this.axios.get('/api/getQuestionnaires').then((response) => {
+        this.questionnaireList = response.data['questionnaires']
+      }).catch(() => {
+        this.$message({ message: 'error!问卷读取失败！', duration: 1000 })
+      })
+    },
+    gotoCreate() {
+      this.axios.get('/api/createQuestionnaire').then((response) => {
+        this.$router.push('/create/' + response.data['id'])
+      })
+    },
+    changeShow(data) {
+      this.checkedList = data
+    }
+  }
+}
+</script>
+
+<style scoped>
+    .row-head {
+        margin-top: 15px;
+        margin-left: 5px;
+    }
+
+</style>
