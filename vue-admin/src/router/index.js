@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import School from  '../components/Student'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -150,10 +151,29 @@ export const constantRoutes = [
     }]
   },
 
+  // 因为我们后面还要加动态的，所以这里应该不能加，反正加了不行
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
+export const asyncRoutes = [
+  {
+    path: '/permission',
+    component: Layout,
+    name: '权限测试',
+    meta: { role: ['super_admin','tenant_admin', 'user', 'answerer'] },
+    children: [
+      {
+        path: 'index',
+        component: School,
+        name: '权限测试页',
+        meta: {  title: 'PERM', icon: 'form', role:  ['super_admin','tenant_admin', 'user', 'answerer'] }
+      }]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+];
+
+// 实例化vue的时候只挂载constantRouter
 const createRouter = () => new Router({
   mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
