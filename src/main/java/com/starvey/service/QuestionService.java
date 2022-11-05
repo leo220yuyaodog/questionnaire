@@ -12,5 +12,7 @@ import java.util.List;
 */
 public interface QuestionService extends IService<Question> {
 
-    public List<Question> getQuestionsByQuestionnaireId(String id);
+    List<Question> getQuestionsByQuestionnaireId(String questionnaireId);
+
+    void removeQuestionsByQuestionnaireId(String questionnaireId);
 }

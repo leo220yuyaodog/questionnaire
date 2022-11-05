@@ -18,15 +18,11 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    /**
-     * 目前没啥用，或许后面题库管理能用，先写着当个测试
-     *
-     */
-    @ApiOperation("获取指定页大小下的指定页的问题列表")
-    @GetMapping("/question/list")
-    public Result getQuestionList(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
-        Page<Question> page = questionService.page(new Page<>(pageNumber, pageSize));
-        return Result.success(page);
+    @ApiOperation("根据问卷id查询下属所有问题")
+    @GetMapping("/question")
+    public Result getQuestions(@RequestParam String questionnaireId) {
+        List<Question> list = questionService.getQuestionsByQuestionnaireId(questionnaireId);
+        return Result.success(list);
     }
 
     @ApiOperation("获取指定id的问题")
@@ -34,13 +30,6 @@ public class QuestionController {
     public Result getQuestion(@PathVariable(name = "id") String id) {
         Question question = questionService.getById(id);
         return question != null ? Result.success(question) : Result. fail("获取问题失败，不存在该id的问题");
-    }
-
-    @ApiOperation("根据问卷id查询下属所有问题")
-    @GetMapping("/question")
-    public Result getQuestions(@RequestParam String id) {
-        List<Question> list = questionService.getQuestionsByQuestionnaireId(id);
-        return Result.success(list);
     }
 
     @ApiOperation("添加问题")

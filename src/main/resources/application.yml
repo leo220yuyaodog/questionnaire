@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/questionnaire?allowPublicKeyRetrieval=true&useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: root1234
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
   mvc:
     pathmatch:
@@ -12,16 +12,21 @@ spring:
 swagger:
   enabled: true
 
+
 server:
+  servlet:
+    context-path: /api
   port: 8080
 
 mybatis-plus:
   type-aliases-package: com.starvey.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+debug:
+  true
 
 casdoor:
-  endpoint: https://bit.windsparkle.top/
+  endpoint: http://bit.windsparkle.top:8000
   client-id: d523344d9ee6890afacf
   client-secret: e3cb68f52da213d27524082c4d3a119e00431404
   certificate: "\

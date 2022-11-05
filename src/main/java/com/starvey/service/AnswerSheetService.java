@@ -1,5 +1,6 @@
 package com.starvey.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starvey.entity.AnswerSheet;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface AnswerSheetService extends IService<AnswerSheet> {
 
+    Page<AnswerSheet> getAnswerSheetsByQuestionnaireId(String questionnaireId, Integer pageNumber, Integer pageSize);
 }

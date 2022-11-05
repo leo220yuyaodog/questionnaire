@@ -13,9 +13,9 @@ public class TenantController {
     private TenantService tenantService;
 
 
-    @ApiOperation("获取指定页大小下的指定页的租户列表")
-    @GetMapping("tenant/list")
-    public Result getTenantList(@RequestParam(defaultValue = "1") Integer pageNumber, Integer pageSize) {
+    @ApiOperation("获取租户列表（分页）")
+    @GetMapping("/tenant")
+    public Result getTenantList(@RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam Integer pageSize) {
         Page<Tenant> page = tenantService.page(new Page<>(pageNumber, pageSize));
         return Result.success(page);
     }
@@ -42,7 +42,7 @@ public class TenantController {
     }
 
     @ApiOperation("删除指定id的租户")
-    @PostMapping("tenant/delete")
+    @PostMapping("/tenant/delete")
     public Result deleteTenant(@RequestBody String id) {
         boolean b = tenantService.removeById(id);
         return b ? Result.success("删除指定租户成功") : Result.fail("删除指定租户失败");

@@ -2,15 +2,24 @@ package com.starvey.controller;
 
 import com.starvey.common.Result;
 import com.starvey.entity.Answer;
+import com.starvey.entity.Question;
 import com.starvey.service.AnswerService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
+    @ApiOperation("根据答卷id查询下属所有答案")
+    @GetMapping("/answer")
+    public Result getAnswers(@RequestParam String answerSheetId) {
+        List<Answer> list = answerService.getAnswersByAnswerSheetId(answerSheetId);
+        return Result.success(list);
+    }
 
     @ApiOperation("获取指定id的答案")
     @GetMapping("/answer/{id}")
@@ -34,7 +43,7 @@ public class AnswerController {
     }
 
     @ApiOperation("删除指定id的答案")
-    @PostMapping("answer/delete")
+    @PostMapping("/answer/delete")
     public Result deleteAnswer(@RequestBody String id) {
         boolean b = answerService.removeById(id);
         return b ? Result.success("删除指定答案成功") : Result.fail("删除指定答案失败");

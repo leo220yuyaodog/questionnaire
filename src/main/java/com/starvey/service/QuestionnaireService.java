@@ -1,8 +1,10 @@
 package com.starvey.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.starvey.entity.Question;
 import com.starvey.entity.Questionnaire;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,7 +15,6 @@ import java.util.List;
  */
 public interface QuestionnaireService extends IService<Questionnaire> {
 
-    public List<Questionnaire> getQuestionnairesByUserId(String id);
+    Page<Questionnaire> getQuestionnairesByUserId(String userId, Integer pageNumber, Integer pageSize);
 
-    List<Question> removeall(String id);
 }
