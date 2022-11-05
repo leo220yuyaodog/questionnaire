@@ -7,39 +7,43 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
- * @TableName answer_sheet
+ *
+ *
+ * @author LiJiaPeng
+ * @email 2741956649@qq.com
+ * @date 2022-11-05 15:01:06
  */
-@TableName(value ="answer_sheet")
 @Data
+@TableName("answer_sheet")
 public class AnswerSheet implements Serializable {
-    /**
-     * 答卷自身id
-     */
-    @TableId
-    private String id;
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 答卷对应的问卷id
+     *
      */
-    private String questionnaireId;
-
+    @TableId(type = IdType.AUTO)
+    private Integer id;
     /**
-     * 答卷的ip地址
+     *
      */
     private String ip;
-
     /**
-     * 答卷完成填写时间（提交的时间）
+     *
+     */
+    private String questionnareId;
+    /**
+     *
      */
     private Date fillTime;
-
     /**
-     * 逻辑删除列，不用管
+     *
+     */
+    private String groupId;
+    /**
+     *
      */
     @TableLogic
     private Integer isDeleted;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

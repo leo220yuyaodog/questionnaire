@@ -1,60 +1,54 @@
 package com.starvey.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 
- * @TableName question
+ *
+ *
+ * @author LiJiaPeng
+ * @email 2741956649@qq.com
+ * @date 2022-11-05 15:01:06
  */
-@TableName(value ="question")
 @Data
+@TableName("question")
 public class Question implements Serializable {
-    /**
-     * 问题自身的id
-     */
-    @TableId
-    private String id;
-
-    /**
-     * 问题所属问卷的id
-     */
-    private String questionnaireId;
-
-    /**
-     * 问题在问卷中的顺序（小的在前，大的在后）
-     */
-    @TableField("`order`")
-    private Integer order;
-
-    /**
-     * 是否是必答题
-     */
-    private Integer isNecessary;
-
-    /**
-     * 问题的类型
-     */
-    private String questionType;
-
-    /**
-     * 问题的描述
-     */
-    private String questionDescription;
-
-    /**
-     * 问题内容。以json字符串存储
-     */
-    private String content;
-
-    /**
-     * 逻辑删除列
-     */
-//    @TableLogic
-    private Integer isDeleted;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    /**
+     *
+     */
+    @TableId
+    private Integer questionId;
+    /**
+     *
+     */
+    private String questionDescription;
+    /**
+     *
+     */
+    private Boolean questionNullable;
+    /**
+     *
+     */
+    private String questionTitle;
+    /**
+     *
+     */
+    private String questionType;
+    /**
+     *
+     */
+    private String questionnaireId;
+    /**
+     *
+     */
+    private Integer isDeleted;
+
 }
