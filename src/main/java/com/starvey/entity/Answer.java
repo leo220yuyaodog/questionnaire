@@ -3,58 +3,60 @@ package com.starvey.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 
- * @TableName answer
+ *
+ *
+ * @author LiJiaPeng
+ * @email 2741956649@qq.com
+ * @date 2022-11-05 15:01:06
  */
-@TableName(value ="answer")
 @Data
+@TableName("answer")
 public class Answer implements Serializable {
-    /**
-     * 答案自身的id
-     */
-    @TableId
-    private String id;
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
 
     /**
-     * 答案对应的问题id
+     *
      */
-    private String questionId;
-
+    @TableId(type = IdType.AUTO)
+    private Integer answerId;
     /**
-     * 答案所属的答卷id
+     *
      */
-    private String answerSheetId;
-
+    private Date fillTime;
     /**
-     * 问题的类型（也就是对应问题的类型，又存了一遍）
+     *
+     */
+    private String ip;
+    /**
+     *
+     */
+    private Integer questionId;
+    /**
+     *
+     */
+    private String questionTitle;
+    /**
+     *
      */
     private String questionType;
-
     /**
-     * 问题的描述（也就是对应问题的描述，又存了一遍）
+     *
      */
-    private String questionDescription;
-
+    private String writeValue;
     /**
-     * 答案在答卷中的顺序（小的在前，大的在后）
+     *
      */
-    @TableField("`order`")
-    private Integer order;
-
+    private Integer answerSheetId;
     /**
-     * 答案内容。以json字符串存储
-     */
-    private String answerContent;
-
-    /**
-     * 逻辑删除列
+     *
      */
     @TableLogic
     private Integer isDeleted;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

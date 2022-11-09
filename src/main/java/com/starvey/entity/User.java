@@ -1,64 +1,65 @@
 package com.starvey.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 
- * @TableName user
+ *
+ *
+ * @author LiJiaPeng
+ * @email 2741956649@qq.com
+ * @date 2022-11-05 15:01:06
  */
-@TableName(value ="user")
 @Data
+@TableName("user")
 public class User implements Serializable {
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
+
     /**
-     * User的id
+     *
      */
     @TableId
     private String id;
-
     /**
-     * User所属租户的id
+     *
      */
     private String tenantId;
-
     /**
-     * 用户名
+     *
      */
     private String username;
-
     /**
-     * 密码
+     *
      */
     private String password;
-
     /**
-     * 手机号
+     *
      */
     private String phoneNum;
-
     /**
-     * 身份
+     *
      */
     private Integer role;
-
     /**
-     * 邮箱
+     *
      */
     private String email;
-
     /**
-     * 头像的链接
+     *
      */
     private String avatar;
-
     /**
-     *  逻辑删除列
+     *
      */
     @TableLogic
     private Integer isDeleted;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }
