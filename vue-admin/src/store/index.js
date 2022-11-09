@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     app,
     settings,
     user,
-    perm  // 记录了路由，权限路由相关信息
+    perm // 记录了路由，权限路由相关信息
   },
   getters
 })

@@ -9,14 +9,16 @@ import router from "@/router"
 const getDefaultState = () => {
   return {
     token: getToken(),
+
     id: "",
     tenantId: "",
-    name: "",
+    username: "",
     password: "",
     phoneNum: "",
     role: "",
     email: "",
     avatar: ""
+
   }
 }
 
@@ -28,10 +30,10 @@ const mutations = {
   },
   SET_USER: (state, user) => {
     state.id = user.id
-    state.tenantId = user.owner
-    state.username = user.name
+    state.tenantId = user.tenantId
+    state.username = user.username
     state.password = user.password
-    state.phoneNum = user.phone
+    state.phoneNum = user.phoneNum
     state.role = user.role
     state.email = user.email
     state.avatar = user.avatar
@@ -39,9 +41,6 @@ const mutations = {
 
   SET_TOKEN: (state, token) => {
     state.token = token
-  },
-  SET_ROLE: (state, role) => {
-    state.role = role
   }
 
   // SET_NAME: (state, name) => {
@@ -54,19 +53,19 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit("SET_TOKEN", data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+  // login({ commit }, userInfo) {
+  //   const { username, password } = userInfo
+  //   return new Promise((resolve, reject) => {
+  //     login({ username: username.trim(), password: password }).then(response => {
+  //       const { data } = response
+  //       commit('SET_TOKEN', data.token)
+  //       setToken(data.token)
+  //       resolve()
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
 
   // 我们的 login 方法
   signin({ commit }) {
@@ -75,12 +74,14 @@ const actions = {
         if (res.msg === "ok") {
           Message("Logged in successfully")
           const { data } = res
+          // 1. 设置 user.token
           commit("SET_TOKEN", data.data1)
-          // console.log(data.data1)
+          console.log(data.data1)
+          // 2. 设置 token 到 cookies
           setToken(data.data1)
           // 3. 设置 user 到 store（方便后面假装从后端读）
-          commit("SET_USER", data.data2)
-          // （3.1设置 user 到 cookies，之后假装从后端读取，其实读的是 cookies）
+          // commit("SET_USER", data.data2)
+          // （3.1设置 user 到 cookies）
           setUser(data.data2)
           // 4. 路由
           resolve()
@@ -117,22 +118,36 @@ const actions = {
   // 假装从后端读取，其实是从 cookies 读
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const user = JSON.parse(getUser())
-      if (!user) {
-        return reject("Verification failed, please Login again.")
+      // const user = getUser()
+      // 也没有 cookie，所以再造假一个
+      const user = {
+        id: "11111111",
+        tenantId: "222",
+        username: "szy",
+        password: "1234",
+        phoneNum: "182xxxx",
+        role: "user",
+        email: "322@qq.com",
+        avatar: ""
       }
-      // 默认user
-      commit("SET_ROLE", "user")
-      // 管理用户
-      if (user.isAdmin === 1) {
-        commit("SET_ROLE", "tenant_admin")
-      }
-      // 管理租户
-      if (user.isGlobalAdmin === 1) {
-        commit("SET_ROLE", "super_admin")
-      }
-
       commit("SET_USER", user)
+      resolve(user)
+
+      // getInfo(state.token).then(response => {
+      //   const { data } = response
+      //
+      //   if (!data) {
+      //     return reject('Verification failed, please Login again.')
+      //   }
+      //
+      //   const { name, avatar } = data
+      //
+      //   commit('SET_NAME', name)
+      //   commit('SET_AVATAR', avatar)
+      //   resolve(data)
+      // }).catch(error => {
+      //   reject(error)
+      // })
     })
   },
 
