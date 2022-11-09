@@ -99,13 +99,13 @@
 </template>
 
 <script>
-import echarts from 'echarts/lib/echarts'
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/chart/pie'
-import 'echarts/lib/component/tooltip'
+import echarts from "echarts/lib/echarts"
+import "echarts/lib/chart/bar"
+import "echarts/lib/chart/pie"
+import "echarts/lib/component/tooltip"
 
 export default {
-  name: 'AnalysisCard',
+  name: "AnalysisCard",
   props: {
     questionIndex: Number,
     questionId: Number,
@@ -118,7 +118,7 @@ export default {
       showBar: true,
       writeValueList: null,
       questionValueList: [],
-      barHeight: '250px'
+      barHeight: "250px"
     }
   },
   created() {
@@ -126,64 +126,64 @@ export default {
   },
   methods: {
     fetchData() {
-      if (this.questionType === 'single_check' || this.questionType === 'multi_check' || this.questionType === 'number' || this.questionType === 'grade') {
-        this.axios.get('/api/getQuestionValueList', {
+      if (this.questionType === "single_check" || this.questionType === "multi_check" || this.questionType === "number" || this.questionType === "grade") {
+        this.axios.get("/api/getQuestionValueList", {
           params: {
             questionId: this.questionId
           }
         }).then((res) => {
-          const temp = res['data']
+          const temp = res["data"]
 
           const dataList = []
           for (const oneName in temp) {
-            dataList.push({ 'name': oneName, 'value': temp[oneName] })
+            dataList.push({ "name": oneName, "value": temp[oneName] })
           }
           dataList.sort((a, b) => {
             return a.value - b.value
           })
           this.questionValueList = dataList
-          this.barHeight = this.questionValueList.length * 33 + 150 + 'px'
+          this.barHeight = this.questionValueList.length * 33 + 150 + "px"
           this.drawBar()
           this.drawPie()
         }).catch(() => {
-          this.$message({ message: 'error！读取失败！', duration: 1000 })
+          this.$message({ message: "error！读取失败！", duration: 1000 })
         })
       } else {
-        this.axios.get('/api/getWriteValue', {
+        this.axios.get("/api/getWriteValue", {
           params: {
             questionId: this.questionId
           }
         }).then((res) => {
-          this.writeValueList = res['data']
+          this.writeValueList = res["data"]
         }).catch(() => {
-          this.$message({ message: 'error！读取失败！', duration: 1000 })
+          this.$message({ message: "error！读取失败！", duration: 1000 })
         })
       }
     },
     drawBar() {
-      const myBarChart = echarts.init(document.getElementById('barChart' + this.questionIndex), 'light')
+      const myBarChart = echarts.init(document.getElementById("barChart" + this.questionIndex), "light")
       myBarChart.setOption({
         tooltip: {},
-        grid: { left: '15%' },
+        grid: { left: "15%" },
         xAxis: {},
         yAxis: {
-          data: this.questionValueList.map(x => x['name'])
+          data: this.questionValueList.map(x => x["name"])
         },
         series: [{
-          name: '选择人数',
-          type: 'bar',
+          name: "选择人数",
+          type: "bar",
           data: this.questionValueList
         }]
       })
     },
     drawPie() {
-      const myPieChart = echarts.init(document.getElementById('pieChart' + this.questionIndex), 'light')
+      const myPieChart = echarts.init(document.getElementById("pieChart" + this.questionIndex), "light")
       myPieChart.setOption({
         tooltip: {},
         grid: { left: 20 },
         series: [{
-          name: '选择人数',
-          type: 'pie',
+          name: "选择人数",
+          type: "pie",
           data: this.questionValueList
         }]
       })

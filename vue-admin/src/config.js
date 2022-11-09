@@ -1,14 +1,14 @@
-import Sdk from 'casdoor-js-sdk'
+import Sdk from "casdoor-js-sdk"
 
 export let CasdoorSdk
-export const ServerUrl = 'http://localhost:8080'
+export const ServerUrl = "http://localhost:8080"
 export const AuthConfig = {
-  serverUrl: 'http://bit.windsparkle.top:8000', // 本地
+  serverUrl: "http://localhost:8000", // 本地
   // serverUrl: 'http://bit.windsparkle.top',
-  clientId: 'd523344d9ee6890afacf',
-  appName: 'Star-Survey',
-  organizationName: 'Star',
-  redirectPath: '/callback'
+  clientId: "d523344d9ee6890afacf",
+  appName: "Star-Survey",
+  organizationName: "Star",
+  redirectPath: "/callback"
 }
 
 export function initCasdoorSdk(config) {
@@ -32,6 +32,6 @@ export function getMyProfileUrl(account) {
 }
 
 export function getMyResourcesUrl(account) {
-  return CasdoorSdk.getMyProfileUrl(account).replace('/account?', '/resources?')
+  return CasdoorSdk.getMyProfileUrl(account).replace("/account?", "/resources?")
 }
 

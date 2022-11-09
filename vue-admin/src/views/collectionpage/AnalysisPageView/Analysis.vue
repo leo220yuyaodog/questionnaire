@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import MainAnalysisList from './MainAnalysisList'
+import MainAnalysisList from "./MainAnalysisList"
 
 export default {
-  name: 'Analysis',
+  name: "Analysis",
   components: { MainAnalysisList }
 }
 </script>

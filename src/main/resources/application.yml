@@ -26,7 +26,8 @@ debug:
   true
 
 casdoor:
-  endpoint: http://bit.windsparkle.top:8000
+  # endpoint: http://bit.windsparkle.top
+  endpoint: http://localhost:8000
   client-id: d523344d9ee6890afacf
   client-secret: e3cb68f52da213d27524082c4d3a119e00431404
   certificate: "\

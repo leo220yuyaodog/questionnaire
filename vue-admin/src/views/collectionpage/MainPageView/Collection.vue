@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="row-head" type="flex" justify="start">
-      <el-col align="start">
+      <el-col align="start" style="margin-left: 20px">
         <el-button
           class="create-button"
           type="primary"
@@ -32,15 +32,15 @@
           :xl="2"
         >
           <QuestionnaireCard
+            v-if="checkedList.indexOf(item.status)!==-1"
+            :id="item.id"
             class="questionnaire-card"
             :title="item.title"
-            :id="item.questionnaireId"
             :status="item.status"
             :create-time="item.createTime"
             :end-time="item.endTime"
             :description="item.description"
             :fill-count="item.fillCount"
-            v-if="checkedList.indexOf(item.status)!==-1"
             @deleteQuestionnaire="fetchData"
           />
         </el-col>
@@ -50,16 +50,32 @@
 </template>
 
 <script>
-import QuestionnaireCard from './QuestionnaireCard'
-import TypeChooseBox from './TypeChooseBox'
-
+import QuestionnaireCard from "./QuestionnaireCard"
+import TypeChooseBox from "./TypeChooseBox"
+import { Message } from "element-ui"
+import * as survey from "@/api/survey"
+import { getUser } from "@/utils/auth"
+import { v4 } from "uuid"
+import moment from "moment"
+const randomName = Math.random().toString(36).slice(-6)
+const newQuestionnaire = {
+  userId: JSON.parse(getUser()).id,
+  id: v4().replaceAll("-", ""), // 获取随机id
+  title: `调查问卷_${randomName}`,
+  status: "2",
+  createTime: moment().format(),
+  description: "一个新的问卷",
+  fillCount: 0,
+  talentId: JSON.parse(getUser()).owner,
+  type: 1
+}
 export default {
-  name: 'Collection',
+  name: "Collection",
   components: { QuestionnaireCard, TypeChooseBox },
   data: function() {
     return {
       questionnaireList: [],
-      checkedList: ['collecting', 'editing', 'closed']
+      checkedList: ["1", "2", "3"]
     }
   },
   mounted() {
@@ -67,16 +83,18 @@ export default {
   },
   methods: {
     fetchData() {
-      this.axios.get('/api/getQuestionnaires').then((response) => {
-        this.questionnaireList = response.data['questionnaires']
+      survey.getQuestionnaires(1, 1, 1).then((response) => {
+        this.questionnaireList = response.data.records
+        console.log(this.questionnaireList)
       }).catch(() => {
-        this.$message({ message: 'error!问卷读取失败！', duration: 1000 })
+        Message("error!问卷读取失败！")
       })
     },
     gotoCreate() {
-      this.axios.get('/api/createQuestionnaire').then((response) => {
-        this.$router.push('/create/' + response.data['id'])
+      survey.addQuestionnaires(newQuestionnaire).then((res) => {
+        console.log(res)
       })
+      this.$router.push(`/create/index/${newQuestionnaire.id}`)
     },
     changeShow(data) {
       this.checkedList = data

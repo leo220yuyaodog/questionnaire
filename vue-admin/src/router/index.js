@@ -1,11 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue"
+import Router from "vue-router"
 
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
-import School from  '../components/Student'
+import Layout from "@/layout"
+import School from "../components/Student"
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -33,79 +33,79 @@ import School from  '../components/Student'
  */
 export const constantRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
+    path: "/login",
+    component: () => import("@/views/login/index"),
     hidden: true
   },
 
   {
-    path: '/404',
-    component: () => import('@/views/404'),
+    path: "/404",
+    component: () => import("@/views/404"),
     hidden: true
   },
 
   {
-    path: '/callback',
-    component: () => import('@/views/login/callback'),
+    path: "/callback",
+    component: () => import("@/views/login/callback"),
     hidden: true
   },
 
   {
-    path: '/',
+    path: "/",
     component: Layout,
-    redirect: '/dashboard',
+    redirect: "/dashboard",
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      path: "dashboard",
+      name: "Dashboard",
+      component: () => import("@/views/dashboard/index"),
+      meta: { title: "Dashboard", icon: "dashboard" }
     }]
   },
 
   {
-    path: '/example',
+    path: "/example",
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: "/example/table",
+    name: "Example",
+    meta: { title: "Example", icon: "el-icon-s-help" },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: "table",
+        name: "Table",
+        component: () => import("@/views/table/index"),
+        meta: { title: "Table", icon: "table" }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: "tree",
+        name: "Tree",
+        component: () => import("@/views/tree/index"),
+        meta: { title: "Tree", icon: "tree" }
       }
     ]
   },
 
   {
-    path: '/form',
+    path: "/form",
     component: Layout,
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: "index",
+        name: "Form",
+        component: () => import("@/views/form/index"),
+        meta: { title: "Form", icon: "form" }
       }
     ]
   },
   {
     component: Layout,
     hidden: true,
-    path: '/create',
+    path: "/create",
     children: [{
-      path: 'create/:id',
-      component: () => import('@/views/createpage/CreatePageView/Create.vue'),
-      name: 'create',
+      path: "index/:id",
+      component: () => import("@/views/createpage/CreatePageView/Create.vue"),
+      name: "create",
       meta: {
-        title: 'create',
+        title: "create",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
@@ -113,43 +113,43 @@ export const constantRoutes = [
 
   {
     component: Layout,
-    path: '/collection',
+    path: "/collection",
     children: [{
-      path: 'index',
-      component: () => import('@/views/collectionpage/MainPageView/Collection.vue'),
-      name: 'collection',
+      path: "index",
+      component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
+      name: "collection",
       meta: {
-        title: 'collection',
+        title: "collection",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
   },
   {
     component: Layout,
-    path: '/analysis',
+    path: "/analysis",
     children: [{
-      path: 'index',
-      component: () => import('@/views/collectionpage/AnalysisPageView/Analysis.vue'),
-      name: 'analysis',
+      path: "index",
+      component: () => import("@/views/collectionpage/AnalysisPageView/Analysis.vue"),
+      name: "analysis",
       meta: {
-        title: 'analysis',
+        title: "analysis",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
   },
   {
     component: Layout,
-    path: '/fill',
+    path: "/fill",
     children: [{
-      path: 'index',
-      component: () => import('@/views/fillinpage/FillInPageView/FillIn.vue'),
-      name: 'Fill',
+      path: "index",
+      component: () => import("@/views/fillinpage/FillInPageView/FillIn.vue"),
+      name: "Fill",
       meta: {
-        title: 'Fill',
+        title: "Fill",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
-  },
+  }
 
   // 因为我们后面还要加动态的，所以这里应该不能加，反正加了不行
   // 404 page must be placed at the end !!!
@@ -158,24 +158,24 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
-    path: '/permission',
+    path: "/permission",
     component: Layout,
-    name: '权限测试',
-    meta: { role: ['super_admin','tenant_admin', 'user', 'answerer'] },
+    name: "权限测试",
+    meta: { role: ["super_admin", "tenant_admin", "user", "answerer"] },
     children: [
       {
-        path: 'index',
+        path: "index",
         component: School,
-        name: '权限测试页',
-        meta: {  title: 'PERM', icon: 'form', role:  ['super_admin','tenant_admin', 'user', 'answerer'] }
+        name: "权限测试页",
+        meta: { title: "PERM", icon: "form", role: ["super_admin", "tenant_admin", "user", "answerer"] }
       }]
   },
-  { path: '*', redirect: '/404', hidden: true }
-];
+  { path: "*", redirect: "/404", hidden: true }
+]
 
 // 实例化vue的时候只挂载constantRouter
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  mode: "history", // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

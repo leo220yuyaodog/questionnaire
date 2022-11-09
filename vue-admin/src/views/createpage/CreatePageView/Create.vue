@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import SelectBar from './SelectBar'
-import MainQuestionList from './MainQuestionList'
-import 'element-ui/lib/theme-chalk/display.css'
+import SelectBar from "./SelectBar"
+import MainQuestionList from "./MainQuestionList"
+import "element-ui/lib/theme-chalk/display.css"
 
 export default {
-  name: 'Create',
+  name: "Create",
   components: { MainQuestionList, SelectBar },
   methods: {
     addNewQuestion(type) {

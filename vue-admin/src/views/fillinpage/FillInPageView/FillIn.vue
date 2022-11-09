@@ -298,7 +298,7 @@ export default {
         let checkList = null
         if (frontQuestion.questionType === 'single_check') {
           checkList = this.answerList[frontIndex].answerSingleCheck
-          if (frontValue != checkList) return false
+          if (frontValue !== checkList) return false
         } else if (frontQuestion.questionType === 'multi_check') {
           checkList = this.answerList[frontIndex].answerMultiCheck
           for (const oneOfMulti of frontValue) {

@@ -23,7 +23,6 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant>
         if (tenant == null) {
             return false;
         }
-        tenant.setQuestionnaireCount(tenant.getQuestionnaireCount() + 1);
         tenant.setCost(tenant.getCost() + 0.5);
         return true;
     }
@@ -35,7 +34,6 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant>
         if (tenant == null) {
             return false;
         }
-        tenant.setAnswerSheetCount(tenant.getAnswerSheetCount() + 1);
         tenant.setCost(tenant.getCost() + 0.1);
         return true;
     }

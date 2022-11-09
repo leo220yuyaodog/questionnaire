@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="check-box">
     <el-checkbox
       v-model="checkAll"
       :indeterminate="isIndeterminate"
@@ -12,16 +12,16 @@
   </div>
 </template>
 <script>
-const options = ['collecting', 'editing', 'closed']
+const options = ["1", "2", "3"]
 export default {
   data() {
     return {
       checkAll: false,
-      checkedList: ['collecting', 'editing', 'closed'],
+      checkedList: ["1", "2", "3"],
       translateLabel: {
-        'collecting': '收集中',
-        'editing': '编辑中',
-        'closed': '已关闭'
+        "1": "收集中",
+        "2": "编辑中",
+        "3": "已关闭"
       },
       checkOptions: options,
       isIndeterminate: true
@@ -29,7 +29,7 @@ export default {
   },
   updated() {
     console.log(this.checkedList)
-    this.$emit('changeShow', this.checkedList)
+    this.$emit("changeShow", this.checkedList)
   },
   methods: {
     handleCheckAllChange(val) {
@@ -45,5 +45,7 @@ export default {
 }
 </script>
 <style scoped>
-
+.check-box{
+  margin-right: 30px;
+}
 </style>

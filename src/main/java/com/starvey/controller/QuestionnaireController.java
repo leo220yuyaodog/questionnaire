@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -26,9 +27,9 @@ public class QuestionnaireController {
     private QuestionnaireService questionnaireService;
 
     @ApiOperation("根据用户id查询下属所有问卷（分页）")
-    @GetMapping("/questionnaire")
-    public Result getQuestionnaireOfUser(@RequestParam String userId, @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam Integer pageSize) {
-        Page<Questionnaire> page = questionnaireService.getQuestionnairesByUserId(userId, pageNumber, pageSize);
+    @GetMapping("/questionnaires")
+    public Result getQuestionnaireOfUser(@PathParam("userId") String id, @PathParam("pageNumber") Integer pageNumber, @PathParam("pageSize") Integer pageSize) {
+        Page<Questionnaire> page = questionnaireService.getQuestionnairesByUserId(id, pageNumber, pageSize);
         return Result.success(page);
     }
 

@@ -38,7 +38,6 @@
           </div>
         </el-card>
       </div>
-      <div style="height: 10px" />
 
       <Question
         v-for="(item,index) in questionList"
@@ -118,11 +117,11 @@
 </template>
 
 <script>
-import Question from './Question'
-import Clipboard from 'clipboard'
+import Question from "./Question"
+import Clipboard from "clipboard"
 
 export default {
-  name: 'MainQuestionList',
+  name: "MainQuestionList",
   components: { Question },
 
   data: function() {
@@ -130,8 +129,8 @@ export default {
       questionList: [],
       questionnaire: {
         isBoxSelected: false,
-        questionnaireDescription: '请输入描述',
-        questionnaireTitle: '请输入标题',
+        questionnaireDescription: "请输入描述",
+        questionnaireTitle: "请输入标题",
         questionnaireId: this.$route.params.id
       },
       deleteVisible: false,
@@ -145,37 +144,37 @@ export default {
 
   methods: {
     fetchData() {
-      this.axios.get('/api/getQuestionList', {
+      this.axios.get("/api/getQuestionList", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
-        const tempList = res.data['questionList']
+        const tempList = res.data["questionList"]
         const resList = []
         for (const t of tempList) {
-          t['date'] = new Date(t['date'])
+          t["date"] = new Date(t["date"])
           resList.push(t)
         }
         this.questionList = resList
-        this.$message({ message: '问卷已读取', duration: 1000 })
+        this.$message({ message: "问卷已读取", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷读取失败！', duration: 1000 })
+        this.$message({ message: "error！问卷读取失败！", duration: 1000 })
       })
 
-      this.axios.get('/api/getQuestionnaireOutline', {
+      this.axios.get("/api/getQuestionnaireOutline", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
         const temp = {
           isBoxSelected: false,
-          questionnaireDescription: res.data['questionnaire']['description'],
-          questionnaireTitle: res.data['questionnaire']['title'],
-          questionnaireId: res.data['questionnaire']['questionnaireId']
+          questionnaireDescription: res.data["questionnaire"]["description"],
+          questionnaireTitle: res.data["questionnaire"]["title"],
+          questionnaireId: res.data["questionnaire"]["questionnaireId"]
         }
         this.questionnaire = temp
       }).catch(() => {
-        this.$message({ message: 'error！问卷概况读取失败！', duration: 1000 })
+        this.$message({ message: "error！问卷概况读取失败！", duration: 1000 })
       })
     },
 
@@ -188,30 +187,30 @@ export default {
     },
 
     saveOneQuestion(data) {
-      const index = data['questionIndex']
+      const index = data["questionIndex"]
       const oneQuestion = {
         questionIndex: index,
         isBoxSelected: true,
-        questionTitle: data['questionTitle'],
-        questionNullable: data['questionNullable'],
-        questionDescription: data['questionDescription'],
-        questionType: data['questionType'],
-        questionOptions: data['questionOptions'],
-        frontOptions: data['frontOptions'],
-        frontChoose: data['frontChoose'],
-        numberType: data['numberType'],
-        defaultNumber: data['defaultNumber'],
-        gradeMax: data['gradeMax'],
-        date: data['date'],
-        textDescription: data['textDescription']
+        questionTitle: data["questionTitle"],
+        questionNullable: data["questionNullable"],
+        questionDescription: data["questionDescription"],
+        questionType: data["questionType"],
+        questionOptions: data["questionOptions"],
+        frontOptions: data["frontOptions"],
+        frontChoose: data["frontChoose"],
+        numberType: data["numberType"],
+        defaultNumber: data["defaultNumber"],
+        gradeMax: data["gradeMax"],
+        date: data["date"],
+        textDescription: data["textDescription"]
       }
       this.questionList.splice(index, 1, oneQuestion)
-      this.axios.post('/api/saveOneQuestion?questionnaireId=' + this.$route.params.id, {
+      this.axios.post("/api/saveOneQuestion?questionnaireId=" + this.$route.params.id, {
         question: oneQuestion
       }).then(() => {
-        this.$message({ message: '问卷已保存', duration: 1000 })
+        this.$message({ message: "问卷已保存", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷未保存！', duration: 1000 })
+        this.$message({ message: "error！问卷未保存！", duration: 1000 })
       })
     },
 
@@ -223,37 +222,37 @@ export default {
       const newQuestion = {
         questionIndex: this.questionList.length,
         isBoxSelected: true,
-        questionTitle: '',
+        questionTitle: "",
         questionNullable: false,
-        questionDescription: '',
+        questionDescription: "",
         questionType: type,
-        questionOptions: [''],
+        questionOptions: [""],
         frontOptions: [[]],
         frontChoose: false,
-        numberType: 'integer',
+        numberType: "integer",
         defaultNumber: 0,
         gradeMax: 5,
         date: new Date(),
-        textDescription: ''
+        textDescription: ""
       }
       this.questionList.push(newQuestion)
-      console.log('add', this.questionList)
+      console.log("add", this.questionList)
     },
     saveQuestionnaireTitle() {
       this.questionnaire.isBoxSelected = false
-      this.axios.post('/api/saveQuestionnaireOutline', {
+      this.axios.post("/api/saveQuestionnaireOutline", {
         questionnaire: this.questionnaire
       }).then(() => {
-        this.$message({ message: '问卷已保存', duration: 1000 })
+        this.$message({ message: "问卷已保存", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷未保存！', duration: 1000 })
+        this.$message({ message: "error！问卷未保存！", duration: 1000 })
       })
     },
     resetQuestionnaireTitle() {
       this.questionnaire = {
         isBoxSelected: false,
-        questionnaireDescription: '请输入描述',
-        questionnaireTitle: '请输入标题',
+        questionnaireDescription: "请输入描述",
+        questionnaireTitle: "请输入标题",
         questionnaireId: this.$route.params.id
       }
     },
@@ -261,23 +260,23 @@ export default {
       this.questionnaire.isBoxSelected = true
     },
     saveQuestionnaire() {
-      this.axios.post('/api/saveQuestionnaire', {
+      this.axios.post("/api/saveQuestionnaire", {
         questionnaire: this.questionnaire,
         questionList: this.questionList
       }).then(() => {
-        this.$message({ message: '问卷已保存', duration: 1000 })
+        this.$message({ message: "问卷已保存", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷未保存！', duration: 1000 })
+        this.$message({ message: "error！问卷未保存！", duration: 1000 })
       })
       this.$router.back()
     },
     deleteQuestionnaire() {
       this.deleteVisible = false
-      this.axios.get('/api/deleteQuestionnaire', { params: { questionnaireId: this.questionnaire.questionnaireId }}).then((response) => {
+      this.axios.get("/api/deleteQuestionnaire", { params: { questionnaireId: this.questionnaire.questionnaireId }}).then((response) => {
         console.log(response)
         this.$router.back()
         this.deleted = true
-        this.$message({ message: '问卷已删除', duration: 1000 })
+        this.$message({ message: "问卷已删除", duration: 1000 })
       })
     },
     frontOptions: function(index) {
@@ -287,9 +286,9 @@ export default {
         const temp = this.questionList[i]
         if (temp != null) {
           const oneQuestion = {
-            label: temp['questionTitle'],
+            label: temp["questionTitle"],
             value: index,
-            children: temp['questionOptions'].map((item) => {
+            children: temp["questionOptions"].map((item) => {
               return { value: item, label: item }
             })
           }
@@ -300,11 +299,11 @@ export default {
     },
 
     releaseQuestionnaire() {
-      this.axios.post('/api/releaseQuestionnaire?questionnaireId=' + this.$route.params.id)
+      this.axios.post("/api/releaseQuestionnaire?questionnaireId=" + this.$route.params.id)
         .then(() => {
-          this.$message({ message: '问卷已发布', duration: 1000 })
+          this.$message({ message: "问卷已发布", duration: 1000 })
         }).catch(() => {
-          this.$message({ message: 'error！问卷未发布！', duration: 1000 })
+          this.$message({ message: "error！问卷未发布！", duration: 1000 })
         })
       this.releaseVisible = true
     },
@@ -313,16 +312,16 @@ export default {
       this.$router.back()
     },
     copy() {
-      const clipboard = new Clipboard('.copy-link')
-      clipboard.on('success', e => {
-        console.log('复制成功')
-        this.$message({ message: '复制成功', duration: 1000 })
+      const clipboard = new Clipboard(".copy-link")
+      clipboard.on("success", e => {
+        console.log("复制成功")
+        this.$message({ message: "复制成功", duration: 1000 })
         // 释放内存
         clipboard.destroy()
       })
-      clipboard.on('error', e => {
+      clipboard.on("error", e => {
         // 不支持复制
-        console.log('该浏览器不支持自动复制')
+        console.log("该浏览器不支持自动复制")
         // 释放内存
         clipboard.destroy()
       })
@@ -333,9 +332,10 @@ export default {
 
 <style scoped>
     .main-question-list {
-        height: 100%;
-        background-color: white;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      margin: 20px 50px;
+      height: 100%;
+      background-color: white;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
     .add-question-inner {

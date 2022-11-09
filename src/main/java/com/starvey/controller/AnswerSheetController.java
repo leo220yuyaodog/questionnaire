@@ -46,7 +46,7 @@ public class AnswerSheetController {
         // 1. 添加答卷
         answerSheetService.save(answerSheet);
         // 2. 更新租户答卷计数和计费
-        Questionnaire questionnaire = questionnaireService.getById(answerSheet.getQuestionnaireId());
+        Questionnaire questionnaire = questionnaireService.getById(answerSheet.getQuestionnareId());
         tenantService.addAnswerSheetTo(questionnaire.getTenantId());
         // 3. 返回结果
         return Result.success(answerSheet);
