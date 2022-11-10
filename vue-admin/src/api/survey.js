@@ -18,3 +18,14 @@ export function addQuestionnaires(newQuestionnaire) {
   }).then(res => res.json())
 }
 
+export function saveOneQuestion(id, question) {
+  fetch(`${config.ServerUrl}/api/saveOneQuestion?questionnaireId=${id}`,{
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(question),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+}
+

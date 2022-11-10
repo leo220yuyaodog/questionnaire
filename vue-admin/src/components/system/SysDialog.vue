@@ -7,7 +7,7 @@
     :before-close="onClose"
   >
     <div class="container" :style="{ height: height + 'px' }">
-      <slot name="content"></slot>
+      <slot name="content" />
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button type="danger" @click="onClose">取 消</el-button>
@@ -18,36 +18,36 @@
 
 <script>
 export default {
-  //接收父组件传过来的值
+  // 接收父组件传过来的值
   props: {
     title: {
       type: String,
-      default: "标题",
+      default: "标题"
     },
     width: {
       type: Number,
-      default: 600,
+      default: 600
     },
     height: {
       type: Number,
-      default: 400,
+      default: 400
     },
     visible: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   methods: {
     onClose() {
-      //调用父组件的方法
-      this.$emit("onClose");
+      // 调用父组件的方法
+      this.$emit("onClose")
     },
     onConfirm() {
-      //调用父组件的方法
-      this.$emit("onConfirm");
-    },
-  },
-};
+      // 调用父组件的方法
+      this.$emit("onConfirm")
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

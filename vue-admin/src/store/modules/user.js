@@ -1,4 +1,4 @@
-import { login, logout } from "@/api/user"
+import { getInfo, login, logout } from "@/api/user"
 import { getToken, setToken, removeToken, setUser, getUser, removeUser } from "@/utils/auth"
 
 import { resetRouter } from "@/router"
@@ -78,7 +78,7 @@ const actions = {
   },
 
   // get user info  Casdoor 登录
-  getInfo({ commit, state }) {
+  getUserInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       const data = JSON.parse(getUser())
       if (!data) {
@@ -91,26 +91,26 @@ const actions = {
     })
   },
 
-  // // get user info
-  // getInfo({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     getInfo(state.token).then(response => {
-  //       const { data } = response
-  //
-  //       if (!data) {
-  //         return reject('Verification failed, please Login again.')
-  //       }
-  //
-  //       const { name, avatar } = data
-  //
-  //       commit('SET_NAME', name)
-  //       commit('SET_AVATAR', avatar)
-  //       resolve(data)
-  //     }).catch(error => {
-  //       reject(error)
-  //     })
-  //   })
-  // },
+  // get user info
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getInfo(state.token).then(response => {
+        const { data } = response
+
+        if (!data) {
+          return reject("Verification failed, please Login again.")
+        }
+
+        const { name, avatar } = data
+
+        commit("SET_NAME", name)
+        commit("SET_AVATAR", avatar)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
 
   // user logout
   logout({ commit, state }) {

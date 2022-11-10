@@ -258,7 +258,7 @@
 
 <script>
 export default {
-  name: 'Question',
+  name: "Question",
   props: {
     isBoxSelected: Boolean,
     questionIndex: Number,
@@ -281,39 +281,39 @@ export default {
     return {
       typeOptions: [
         {
-          value: 'not_selected',
-          label: '请输入'
+          value: "not_selected",
+          label: "请输入"
         }, {
-          value: 'single_check',
-          label: '单选'
+          value: "single_check",
+          label: "单选"
         }, {
-          value: 'multi_check',
-          label: '多选'
+          value: "multi_check",
+          label: "多选"
         }, {
-          value: 'single_line_text',
-          label: '单行文本'
+          value: "single_line_text",
+          label: "单行文本"
         }, {
-          value: 'multi_line_text',
-          label: '多行文本'
+          value: "multi_line_text",
+          label: "多行文本"
         }, {
-          value: 'number',
-          label: '数字'
+          value: "number",
+          label: "数字"
         }, {
-          value: 'grade',
-          label: '评分'
+          value: "grade",
+          label: "评分"
         }, {
-          value: 'date',
-          label: '日期'
+          value: "date",
+          label: "日期"
         }, {
-          value: 'text_description',
-          label: '文本描述'
+          value: "text_description",
+          label: "文本描述"
         }],
       numberTypeOptions: [{
-        value: 'integer',
-        label: '整数'
+        value: "integer",
+        label: "整数"
       }, {
-        value: 'fraction',
-        label: '小数'
+        value: "fraction",
+        label: "小数"
       }],
       numberTypeValue: this.numberType,
       defaultNumberValue: this.defaultNumber,
@@ -352,32 +352,32 @@ export default {
   },
   methods: {
     clickUnSelected() {
-      this.$emit('clickUnSelected')
+      this.$emit("clickUnSelected")
     },
     saveOneQuestion() {
-      this.$emit('saveOneQuestion', this.questionData)
-      this.$emit('clickSelected')
+      this.$emit("saveOneQuestion", this.questionData)
+      this.$emit("clickSelected")
     },
     resetQuestion() {
-      this.$emit('resetQuestion')
-      this.questionTitleValue = '请输入标题'
+      this.$emit("resetQuestion")
+      this.questionTitleValue = "请输入标题"
       this.questionNullableValue = false
-      this.questionDescriptionValue = '请输入描述'
-      this.typeValue = 'not_selected'
+      this.questionDescriptionValue = "请输入描述"
+      this.typeValue = "not_selected"
       this.optionsValue = []
       this.frontOptionsValue = [[]]
       this.frontChooseValue = false
-      this.numberTypeValue = 'integer'
+      this.numberTypeValue = "integer"
       this.defaultNumberValue = 0
       this.gradeMaxValue = 5
       this.dateValue = new Date()
-      this.textDescriptionValue = ''
+      this.textDescriptionValue = ""
     },
     clickDelete() {
-      this.$emit('clickDelete')
+      this.$emit("clickDelete")
     },
     addOption() {
-      this.optionsValue.push('')
+      this.optionsValue.push("")
     },
     deleteOption(index) {
       this.optionsValue.splice(index, 1)

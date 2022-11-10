@@ -94,12 +94,12 @@
           <el-link
             class="copy-link"
             target="_blank"
-            :data-clipboard-text="this.servername+'/fillin/'+this.$route.params.id"
+            :data-clipboard-text="servername+'/fillin/'+this.$route.params.id"
             data-clipboard-action="copy"
             type="primary"
             @click="copy"
           >
-            {{ this.questionnaire.questionnaireTitle }}-点击复制
+            {{ questionnaire.questionnaireTitle }}-点击复制
           </el-link>
           <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="releaseEnd">关 闭</el-button>
@@ -126,6 +126,7 @@ export default {
 
   data: function() {
     return {
+      servername: "http:localhost:8080",
       questionList: [],
       questionnaire: {
         isBoxSelected: false,

@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
+import { Navbar, Sidebar, AppMain } from "@/layout/components"
+import ResizeMixin from "./mixin/ResizeHandler"
 
 export default {
-  name: 'Layout',
+  name: "Layout",
   components: {
     Navbar,
     Sidebar,
@@ -38,13 +38,13 @@ export default {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        mobile: this.device === "mobile"
       }
     }
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+      this.$store.dispatch("app/closeSideBar", { withoutAnimation: false })
     }
   }
 }

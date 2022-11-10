@@ -27,7 +27,7 @@ public class Questionnaire implements Serializable {
      *
      */
     @TableId(type = IdType.AUTO)
-    private Integer questionnaireId;
+    private Integer Id;
     /**
      *
      */
