@@ -5,7 +5,6 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from "@/layout"
-import School from "../components/Student"
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -63,23 +62,16 @@ export const constantRoutes = [
   },
 
   {
-    path: "/example",
+    path: "/bill",
     component: Layout,
-    redirect: "/example/table",
-    name: "Example",
-    meta: { title: "Example", icon: "el-icon-s-help" },
+    redirect: "/bill",
+    name: "bill",
     children: [
       {
-        path: "table",
+        path: "index",
         name: "Table",
-        component: () => import("@/views/table/index"),
-        meta: { title: "Table", icon: "table" }
-      },
-      {
-        path: "tree",
-        name: "Tree",
-        component: () => import("@/views/tree/index"),
-        meta: { title: "Tree", icon: "tree" }
+        component: () => import("@/views/BillList"),
+        meta: { title: "Bill", icon: "table" }
       }
     ]
   },
@@ -90,9 +82,9 @@ export const constantRoutes = [
     children: [
       {
         path: "index",
-        name: "Form",
-        component: () => import("@/views/form/index"),
-        meta: { title: "Form", icon: "form" }
+        name: "User",
+        component: () => import("@/views/UserList"),
+        meta: { title: "User", icon: "form" }
       }
     ]
   },
@@ -149,31 +141,12 @@ export const constantRoutes = [
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
-  }
-
-  // 因为我们后面还要加动态的，所以这里应该不能加，反正加了不行
-  // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
-]
-
-export const asyncRoutes = [
-  {
-    path: "/permission",
-    component: Layout,
-    name: "权限测试",
-    meta: { role: ["super_admin", "tenant_admin", "user", "answerer"] },
-    children: [
-      {
-        path: "index",
-        component: School,
-        name: "权限测试页",
-        meta: { title: "PERM", icon: "form", role: ["super_admin", "tenant_admin", "user", "answerer"] }
-      }]
   },
+
+  // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true }
 ]
 
-// 实例化vue的时候只挂载constantRouter
 const createRouter = () => new Router({
   mode: "history", // require service support
   scrollBehavior: () => ({ y: 0 }),

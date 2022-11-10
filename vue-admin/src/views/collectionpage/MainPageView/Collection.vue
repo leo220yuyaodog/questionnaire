@@ -54,19 +54,18 @@ import QuestionnaireCard from "./QuestionnaireCard"
 import TypeChooseBox from "./TypeChooseBox"
 import { Message } from "element-ui"
 import * as survey from "@/api/survey"
-import { getUser } from "@/utils/auth"
-import { v4 } from "uuid"
+import store from "@/store"
 import moment from "moment"
 const randomName = Math.random().toString(36).slice(-6)
 const newQuestionnaire = {
-  userId: JSON.parse(getUser()).id,
-  id: v4().replaceAll("-", ""), // 获取随机id
+  userId: store.getters.name,
+  // QuestionnaireId: v4().replaceAll("-", ""), // 获取随机id
   title: `调查问卷_${randomName}`,
   status: "2",
   createTime: moment().format(),
   description: "一个新的问卷",
   fillCount: 0,
-  talentId: JSON.parse(getUser()).owner,
+  talentId: 1,
   type: 1
 }
 export default {
@@ -92,9 +91,12 @@ export default {
     },
     gotoCreate() {
       survey.addQuestionnaires(newQuestionnaire).then((res) => {
-        console.log(res)
+        if (res.code === 200) {
+          this.$router.push(`/create/index/${newQuestionnaire.id}`)
+        } else {
+          Message(res.message)
+        }
       })
-      this.$router.push(`/create/index/${newQuestionnaire.id}`)
     },
     changeShow(data) {
       this.checkedList = data

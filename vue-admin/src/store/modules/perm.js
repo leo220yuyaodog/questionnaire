@@ -1,4 +1,4 @@
-import { asyncRoutes, constantRoutes } from '../../router';
+import { asyncRoutes, constantRoutes } from "../../router"
 
 function hasPermission(role, route) {
   if (route.meta && route.meta.role) {
@@ -15,8 +15,8 @@ const state = {
 
 const mutations = {
   SET_ROUTERS: (state, routers) => {
-    state.addRouters = routers;
-    state.routers = constantRoutes.concat(routers);
+    state.addRouters = routers
+    state.routers = constantRoutes.concat(routers)
   }
 }
 
@@ -30,21 +30,20 @@ const actions = {
               if (hasPermission(role, child)) {
                 return child
               }
-              return false;
-            });
+              return false
+            })
             return v
           } else {
             return v
           }
         }
-        return false;
-      });
-      commit('SET_ROUTERS', accessedRouters);
-      resolve();
+        return false
+      })
+      commit("SET_ROUTERS", accessedRouters)
+      resolve()
     })
   }
 }
-
 
 export default {
   namespaced: true,
