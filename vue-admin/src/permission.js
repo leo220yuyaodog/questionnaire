@@ -26,26 +26,14 @@ router.beforeEach(async(to, from, next) => {
       next({ path: "/" })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters.username
+      const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
         next()
       } else {
-        // 有 token 但没有 user info
         try {
-          store.dispatch("user/getInfo").then(user => {
-            console.log("user", user)
-            const role = user.role
-            console.log("role", role)
-            // 生成可访问的路由表
-            store.dispatch("perm/GenerateRoutes", role).then(() => {
-              // 动态添加可访问路由表（测试正常）
-              console.log("====", store.state.perm.addRouters)
-              router.addRoutes(store.state.perm.addRouters)
-              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-            })
-          }).catch(err => {
-            console.log(err)
-          })
+          // get user info
+          await store.dispatch("user/getInfo")
+          next()
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch("user/resetToken")
