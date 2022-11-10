@@ -331,7 +331,7 @@ export default {
   },
   computed: {
     questionData: function() {
-      const questionData = {
+      return {
         questionIndex: this.questionIndex,
         questionOptions: this.optionsValue,
         questionDescription: this.questionDescriptionValue,
@@ -346,7 +346,6 @@ export default {
         date: this.dateValue,
         textDescription: this.textDescriptionValue
       }
-      return questionData
     }
 
   },

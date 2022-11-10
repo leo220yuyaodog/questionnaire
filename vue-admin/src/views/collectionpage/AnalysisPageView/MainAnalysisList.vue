@@ -37,26 +37,27 @@
 </template>
 
 <script>
-import AnalysisCard from './AnalysisCard'
+import AnalysisCard from "./AnalysisCard"
+import { ServerUrl } from "@/config"
 
 export default {
-  name: 'MainAnalysisList',
+  name: "MainAnalysisList",
   components: { AnalysisCard },
   data: function() {
     return {
       questionnaire: {
-        title: '',
-        description: '描述',
-        status: '已完成',
+        title: "",
+        description: "描述",
+        status: "已完成",
         createTime: null,
         endTime: null,
         fillCount: 299
       },
       questionList: [],
       translateLabel: {
-        'collecting': '收集中',
-        'editing': '编辑中',
-        'closed': '已关闭'
+        "collecting": "收集中",
+        "editing": "编辑中",
+        "closed": "已关闭"
       }
     }
   },
@@ -65,25 +66,25 @@ export default {
   },
   methods: {
     fetchData() {
-      this.axios.get('/api/getQuestionList', {
+      this.axios.get(ServerUrl + "/api/getQuestionList", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
-        this.questionList = res.data['questionList']
-        this.$message({ message: '问卷已读取', duration: 1000 })
+        this.questionList = res.data["questionList"]
+        this.$message({ message: "问卷已读取", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷读取失败！', duration: 1000 })
+        this.$message({ message: "error！问卷读取失败！", duration: 1000 })
       })
 
-      this.axios.get('/api/getQuestionnaireOutline', {
+      this.axios.get(ServerUrl + "/api/getQuestionnaireOutline", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
-        this.questionnaire = res.data['questionnaire']
+        this.questionnaire = res.data["questionnaire"]
       }).catch(() => {
-        this.$message({ message: 'error！问卷概况读取失败！', duration: 1000 })
+        this.$message({ message: "error！问卷概况读取失败！", duration: 1000 })
       })
     }
   }

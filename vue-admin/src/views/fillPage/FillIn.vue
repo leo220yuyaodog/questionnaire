@@ -158,16 +158,18 @@
 </template>
 
 <script>
+import {ServerUrl} from "@/config";
+
 export default {
-  name: 'FillIn',
+  name: "FillIn",
   data: function() {
     return {
       questionList: [],
       answerList: [],
       questionnaire: {
         isBoxSelected: false,
-        questionnaireDescription: 'Description',
-        questionnaireTitle: 'Title',
+        questionnaireDescription: "Description",
+        questionnaireTitle: "Title",
         questionnaireId: this.$route.params.id
       },
       submitVisible: false,
@@ -186,100 +188,100 @@ export default {
   },
   mounted() {
     this.fetchData()
-    this.ip = localStorage.getItem('Ip')
+    this.ip = localStorage.getItem("Ip")
 
-    this.axios.get('/api/fillin/checkAlreadySubmit', {
+    this.axios.get(ServerUrl + "/api/fillin/checkAlreadySubmit", {
       params: {
         questionnaireId: this.$route.params.id,
         ip: this.ip
       }
     }).then((res) => {
-      this.alreadySubmit = res['data']
+      this.alreadySubmit = res["data"]
       this.cannotSubmit = this.alreadySubmit
       if (this.alreadySubmit) {
-        this.$message.error({ message: '您已填写过该问卷！', duration: 0, showClose: true })
+        this.$message.error({ message: "您已填写过该问卷！", duration: 0, showClose: true })
       }
     }).catch(() => {
-      this.$message({ message: 'error！IP地址检测失败！', duration: 1000 })
+      this.$message({ message: "error！IP地址检测失败！", duration: 1000 })
     })
   },
   methods: {
     fetchData() {
-      if (localStorage.getItem('Ip')) {
-        this.axios.get('http://api.tianapi.com/txapi/ipquery/index?key=68b512d1b0023c2a4db0818a4854700c').then((res) => {
-          const Ip = res.data['newslist'][0]['ip']
+      if (localStorage.getItem("Ip")) {
+        this.axios.get("http://api.tianapi.com/txapi/ipquery/index?key=68b512d1b0023c2a4db0818a4854700c").then((res) => {
+          const Ip = res.data["newslist"][0]["ip"]
           console.log(res, Ip)
-          localStorage.setItem('Ip', Ip)
-          this.ip = localStorage.getItem('Ip')
+          localStorage.setItem("Ip", Ip)
+          this.ip = localStorage.getItem("Ip")
         }).catch(() => {
-          this.$message({ message: 'error！IP地址检测失败！', duration: 1000 })
+          this.$message({ message: "error！IP地址检测失败！", duration: 1000 })
         })
       }
-      this.axios.get('/api/fillin/getQuestionList', {
+      this.axios.get(ServerUrl + "/api/fillin/getQuestionList", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
-        const tempList = res.data['questionList']
+        const tempList = res.data["questionList"]
         const resList = []
         const ansList = []
         for (const t of tempList) {
-          t['date'] = new Date(t['date'])
+          t["date"] = new Date(t["date"])
           resList.push(t)
           const oneAnswer = {
-            questionId: t['questionId'],
-            questionTitle: t['questionTitle'],
-            questionType: t['questionType'],
-            questionNullable: t['questionNullable'],
-            answerSingleCheck: '',
+            questionId: t["questionId"],
+            questionTitle: t["questionTitle"],
+            questionType: t["questionType"],
+            questionNullable: t["questionNullable"],
+            answerSingleCheck: "",
             answerMultiCheck: [],
-            answerText: '',
-            answerNumber: t['defaultNumber'],
+            answerText: "",
+            answerNumber: t["defaultNumber"],
             answerGrade: 0,
-            answerDate: t['date']
+            answerDate: t["date"]
           }
           ansList.push(oneAnswer)
         }
         this.questionList = resList
         this.answerList = ansList
-        this.$message({ message: '问卷已读取', duration: 1000 })
+        this.$message({ message: "问卷已读取", duration: 1000 })
       }).catch(() => {
-        this.$message({ message: 'error！问卷读取失败！', duration: 1000 })
+        this.$message({ message: "error！问卷读取失败！", duration: 1000 })
       })
 
-      this.axios.get('/api/fillin/getQuestionnaireOutline', {
+      this.axios.get(ServerUrl + "/api/fillin/getQuestionnaireOutline", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
         const temp = {
           isBoxSelected: false,
-          questionnaireDescription: res.data['questionnaire']['description'],
-          questionnaireTitle: res.data['questionnaire']['title'],
-          questionnaireId: res.data['questionnaire']['questionnaireId']
+          questionnaireDescription: res.data["questionnaire"]["description"],
+          questionnaireTitle: res.data["questionnaire"]["title"],
+          questionnaireId: res.data["questionnaire"]["questionnaireId"]
         }
-        if (res.data['questionnaire']['status'] === 'closed') {
-          this.$message.error({ message: 'error！问卷已关闭！', duration: 0 })
+        if (res.data["questionnaire"]["status"] === "closed") {
+          this.$message.error({ message: "error！问卷已关闭！", duration: 0 })
           this.cannotSubmit = true
         }
         this.questionnaire = temp
       }).catch(() => {
-        this.$message({ message: 'error!问卷概况读取失败！', duration: 1000 })
+        this.$message({ message: "error!问卷概况读取失败！", duration: 1000 })
       })
     },
     submitAnswer() {
       console.log(this.answerList)
       if (this.checkValidate()) {
-        this.axios.post('/api/fillin/submitAnswer?questionnaireId=' + this.$route.params.id, {
+        this.axios.post(ServerUrl + "/api/fillin/submitAnswer?questionnaireId=" + this.$route.params.id, {
           answerList: this.answerList,
           ip: this.ip
         }).then(() => {
           this.submitVisible = false
           this.alreadySubmit = true
           this.cannotSubmit = true
-          this.$message({ message: '问卷已提交', duration: 1000 })
+          this.$message({ message: "问卷已提交", duration: 1000 })
         }).catch(() => {
-          this.$message({ message: 'error！提交失败！', duration: 1000 })
+          this.$message({ message: "error！提交失败！", duration: 1000 })
         })
       }
     },
@@ -296,10 +298,10 @@ export default {
         const frontValue = oneFront[1]
         const frontQuestion = this.questionList[frontIndex]
         let checkList = null
-        if (frontQuestion.questionType === 'single_check') {
+        if (frontQuestion.questionType === "single_check") {
           checkList = this.answerList[frontIndex].answerSingleCheck
           if (frontValue !== checkList) return false
-        } else if (frontQuestion.questionType === 'multi_check') {
+        } else if (frontQuestion.questionType === "multi_check") {
           checkList = this.answerList[frontIndex].answerMultiCheck
           for (const oneOfMulti of frontValue) {
             if (checkList.indexOf(oneOfMulti) === -1) { return false }
@@ -311,20 +313,20 @@ export default {
     checkValidate() {
       for (const oneAnswer of this.answerList) {
         if (oneAnswer.questionNullable === true) {
-          console.log('nullable', oneAnswer)
+          console.log("nullable", oneAnswer)
           continue
         } else {
-          console.log(oneAnswer.questionType === 'single_check')
-          if (oneAnswer.questionType === 'single_check' && oneAnswer.answerSingleCheck === '' ||
-                            oneAnswer.questionType === 'multi_check' && oneAnswer.answerMultiCheck === [] ||
-                            oneAnswer.questionType === 'single_line_text' && oneAnswer.answerText === '' ||
-                            oneAnswer.questionType === 'multi_line_text' && oneAnswer.answerText === '' ||
-                            oneAnswer.questionType === 'number' && oneAnswer.answerNumber == null ||
-                            oneAnswer.questionType === 'grade' && oneAnswer.answerGrade === 0 ||
-                            oneAnswer.questionType === 'date' && oneAnswer.answerGrade == null
+          console.log(oneAnswer.questionType === "single_check")
+          if (oneAnswer.questionType === "single_check" && oneAnswer.answerSingleCheck === "" ||
+                            oneAnswer.questionType === "multi_check" && oneAnswer.answerMultiCheck === [] ||
+                            oneAnswer.questionType === "single_line_text" && oneAnswer.answerText === "" ||
+                            oneAnswer.questionType === "multi_line_text" && oneAnswer.answerText === "" ||
+                            oneAnswer.questionType === "number" && oneAnswer.answerNumber == null ||
+                            oneAnswer.questionType === "grade" && oneAnswer.answerGrade === 0 ||
+                            oneAnswer.questionType === "date" && oneAnswer.answerGrade == null
           ) {
-            console.log('error')
-            this.$message.error(oneAnswer.questionId % 1000 + 1 + ' ' + oneAnswer.questionTitle + ' 是必填字段！')
+            console.log("error")
+            this.$message.error(oneAnswer.questionId % 1000 + 1 + " " + oneAnswer.questionTitle + " 是必填字段！")
             return false
           }
         }

@@ -19,7 +19,7 @@ export function addQuestionnaires(newQuestionnaire) {
 }
 
 export function saveOneQuestion(id, question) {
-  fetch(`${config.ServerUrl}/api/saveOneQuestion?questionnaireId=${id}`,{
+  fetch(`${config.ServerUrl}/api/saveOneQuestion?questionnaireId=${id}`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(question),

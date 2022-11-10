@@ -44,15 +44,15 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { getList } from "@/api/table"
 
 export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+        published: "success",
+        draft: "gray",
+        deleted: "danger"
       }
       return statusMap[status]
     }

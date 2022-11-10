@@ -50,25 +50,19 @@ export default {
 
 <style scoped>
     .select-menu {
-      margin: 20px 30px 30px 20px;
-      width: 200px;
-      background-color: white;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        width: 200px;
+        background-color: white;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
     .select-item {
-      width: 100px;
-      padding-top: 15px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: rgba(0, 0, 0, 0.05);
-      transition: all ease 300ms;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
+        width: 100px;
+        padding-top: 15px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.05);
+        transition: all ease 300ms;
+        cursor: pointer;
     }
 
     .select-item:hover {

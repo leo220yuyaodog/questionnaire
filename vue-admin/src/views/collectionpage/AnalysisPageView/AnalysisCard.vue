@@ -103,6 +103,7 @@ import echarts from "echarts/lib/echarts"
 import "echarts/lib/chart/bar"
 import "echarts/lib/chart/pie"
 import "echarts/lib/component/tooltip"
+import {ServerUrl} from "@/config";
 
 export default {
   name: "AnalysisCard",
@@ -127,7 +128,7 @@ export default {
   methods: {
     fetchData() {
       if (this.questionType === "single_check" || this.questionType === "multi_check" || this.questionType === "number" || this.questionType === "grade") {
-        this.axios.get("/api/getQuestionValueList", {
+        this.axios.get(ServerUrl + "/api/getQuestionValueList", {
           params: {
             questionId: this.questionId
           }
@@ -149,7 +150,7 @@ export default {
           this.$message({ message: "error！读取失败！", duration: 1000 })
         })
       } else {
-        this.axios.get("/api/getWriteValue", {
+        this.axios.get(ServerUrl + "/api/getWriteValue", {
           params: {
             questionId: this.questionId
           }

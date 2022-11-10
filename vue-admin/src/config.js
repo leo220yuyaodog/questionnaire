@@ -1,6 +1,7 @@
 import Sdk from "casdoor-js-sdk"
 
 export let CasdoorSdk
+export const servername = "http://localhost:3000"
 export const ServerUrl = "http://localhost:8080"
 export const AuthConfig = {
   serverUrl: "http://localhost:8000", // 本地

@@ -5,7 +5,7 @@
 <script>
 
 export default {
-  name: 'Callback',
+  name: "Callback",
   data() {
     return {
       loading: false
@@ -18,7 +18,7 @@ export default {
   methods: {
     callback() {
       this.loading = true
-      this.$store.dispatch('user/signin').then(() => {
+      this.$store.dispatch("user/signin").then(() => {
         this.loading = false
       }).catch(() => {
         this.loading = false

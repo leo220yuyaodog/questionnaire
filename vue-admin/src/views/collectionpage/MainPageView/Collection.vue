@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="row-head" type="flex" justify="start">
-      <el-col align="start" style="margin-left: 20px">
+      <el-col align="start">
         <el-button
           class="create-button"
           type="primary"
@@ -33,7 +33,7 @@
         >
           <QuestionnaireCard
             v-if="checkedList.indexOf(item.status)!==-1"
-            :id="item.id"
+            :id="item.questionnaireId"
             class="questionnaire-card"
             :title="item.title"
             :status="item.status"
@@ -52,29 +52,16 @@
 <script>
 import QuestionnaireCard from "./QuestionnaireCard"
 import TypeChooseBox from "./TypeChooseBox"
-import { Message } from "element-ui"
-import * as survey from "@/api/survey"
+import { ServerUrl } from "@/config"
 import store from "@/store"
-import moment from "moment"
-const randomName = Math.random().toString(36).slice(-6)
-const newQuestionnaire = {
-  userId: store.getters.name,
-  // QuestionnaireId: v4().replaceAll("-", ""), // 获取随机id
-  title: `调查问卷_${randomName}`,
-  status: "2",
-  createTime: moment().format(),
-  description: "一个新的问卷",
-  fillCount: 0,
-  talentId: 1,
-  type: 1
-}
+
 export default {
   name: "Collection",
   components: { QuestionnaireCard, TypeChooseBox },
   data: function() {
     return {
       questionnaireList: [],
-      checkedList: ["1", "2", "3"]
+      checkedList: ["collecting", "editing", "closed"]
     }
   },
   mounted() {
@@ -82,20 +69,15 @@ export default {
   },
   methods: {
     fetchData() {
-      survey.getQuestionnaires(1, 1, 1).then((response) => {
-        this.questionnaireList = response.data.records
-        console.log(this.questionnaireList)
+      this.axios.get(ServerUrl + `/api/getQuestionnaires?username=${store.getters.name}`).then((response) => {
+        this.questionnaireList = response.data["questionnaires"]
       }).catch(() => {
-        Message("error!问卷读取失败！")
+        this.$message({ message: "error!问卷读取失败！", duration: 1000 })
       })
     },
     gotoCreate() {
-      survey.addQuestionnaires(newQuestionnaire).then((res) => {
-        if (res.code === 200) {
-          this.$router.push(`/create/index/${newQuestionnaire.id}`)
-        } else {
-          Message(res.message)
-        }
+      this.axios.get(ServerUrl + `/api/createQuestionnaire?username=${store.getters.name}`).then((response) => {
+        this.$router.push("/create/index/" + response.data["id"])
       })
     },
     changeShow(data) {

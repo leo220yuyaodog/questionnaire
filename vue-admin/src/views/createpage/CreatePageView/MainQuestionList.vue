@@ -38,6 +38,7 @@
           </div>
         </el-card>
       </div>
+      <div style="height: 10px" />
 
       <Question
         v-for="(item,index) in questionList"
@@ -94,7 +95,7 @@
           <el-link
             class="copy-link"
             target="_blank"
-            :data-clipboard-text="servername+'/fillin/'+this.$route.params.id"
+            :data-clipboard-text="servername+'/fill/index/'+this.$route.params.id"
             data-clipboard-action="copy"
             type="primary"
             @click="copy"
@@ -119,16 +120,18 @@
 <script>
 import Question from "./Question"
 import Clipboard from "clipboard"
-
+import { servername, ServerUrl } from "@/config"
+import store from "@/store"
 export default {
   name: "MainQuestionList",
   components: { Question },
 
   data: function() {
     return {
-      servername: "http:localhost:8080",
+      servername: servername,
       questionList: [],
       questionnaire: {
+        username: store.getters.name,
         isBoxSelected: false,
         questionnaireDescription: "请输入描述",
         questionnaireTitle: "请输入标题",
@@ -145,7 +148,7 @@ export default {
 
   methods: {
     fetchData() {
-      this.axios.get("/api/getQuestionList", {
+      this.axios.get(ServerUrl + "/api/getQuestionList", {
         params: {
           questionnaireId: this.$route.params.id
         }
@@ -162,18 +165,17 @@ export default {
         this.$message({ message: "error！问卷读取失败！", duration: 1000 })
       })
 
-      this.axios.get("/api/getQuestionnaireOutline", {
+      this.axios.get(ServerUrl + "/api/getQuestionnaireOutline", {
         params: {
           questionnaireId: this.$route.params.id
         }
       }).then((res) => {
-        const temp = {
+        this.questionnaire = {
           isBoxSelected: false,
           questionnaireDescription: res.data["questionnaire"]["description"],
           questionnaireTitle: res.data["questionnaire"]["title"],
           questionnaireId: res.data["questionnaire"]["questionnaireId"]
         }
-        this.questionnaire = temp
       }).catch(() => {
         this.$message({ message: "error！问卷概况读取失败！", duration: 1000 })
       })
@@ -206,7 +208,7 @@ export default {
         textDescription: data["textDescription"]
       }
       this.questionList.splice(index, 1, oneQuestion)
-      this.axios.post("/api/saveOneQuestion?questionnaireId=" + this.$route.params.id, {
+      this.axios.post(ServerUrl + "/api/saveOneQuestion?questionnaireId=" + this.$route.params.id, {
         question: oneQuestion
       }).then(() => {
         this.$message({ message: "问卷已保存", duration: 1000 })
@@ -241,7 +243,8 @@ export default {
     },
     saveQuestionnaireTitle() {
       this.questionnaire.isBoxSelected = false
-      this.axios.post("/api/saveQuestionnaireOutline", {
+      console.log(this.questionnaire)
+      this.axios.post(ServerUrl + "/api/saveQuestionnaireOutline", {
         questionnaire: this.questionnaire
       }).then(() => {
         this.$message({ message: "问卷已保存", duration: 1000 })
@@ -261,7 +264,8 @@ export default {
       this.questionnaire.isBoxSelected = true
     },
     saveQuestionnaire() {
-      this.axios.post("/api/saveQuestionnaire", {
+      console.log(this.questionnaire)
+      this.axios.post(ServerUrl + "/api/saveQuestionnaire", {
         questionnaire: this.questionnaire,
         questionList: this.questionList
       }).then(() => {
@@ -273,7 +277,7 @@ export default {
     },
     deleteQuestionnaire() {
       this.deleteVisible = false
-      this.axios.get("/api/deleteQuestionnaire", { params: { questionnaireId: this.questionnaire.questionnaireId }}).then((response) => {
+      this.axios.get(ServerUrl + "/api/deleteQuestionnaire", { params: { questionnaireId: this.questionnaire.questionnaireId }}).then((response) => {
         console.log(response)
         this.$router.back()
         this.deleted = true
@@ -300,7 +304,7 @@ export default {
     },
 
     releaseQuestionnaire() {
-      this.axios.post("/api/releaseQuestionnaire?questionnaireId=" + this.$route.params.id)
+      this.axios.post(ServerUrl + "/api/releaseQuestionnaire?questionnaireId=" + this.$route.params.id)
         .then(() => {
           this.$message({ message: "问卷已发布", duration: 1000 })
         }).catch(() => {
@@ -333,10 +337,9 @@ export default {
 
 <style scoped>
     .main-question-list {
-      margin: 20px 50px;
-      height: 100%;
-      background-color: white;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        height: 100%;
+        background-color: white;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
     .add-question-inner {

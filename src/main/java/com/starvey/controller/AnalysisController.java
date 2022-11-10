@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 public class AnalysisController {
     @Autowired
@@ -19,7 +21,7 @@ public class AnalysisController {
     }
 
     @GetMapping("/api/getQuestionnaires")
-    public String getQuestionnaires(@RequestParam String username) {
+    public String getQuestionnaires(@PathParam("username") String username) {
         return analysisService.getQuestionnairesByUsername(username);
     }
 

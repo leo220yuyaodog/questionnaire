@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '星调查',
+  title: "星调查",
 
   /**
    * @type {boolean} true | false

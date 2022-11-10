@@ -118,10 +118,11 @@ export const constantRoutes = [
   },
   {
     component: Layout,
+    hidden: true,
     path: "/analysis",
     children: [{
-      path: "index",
-      component: () => import("@/views/collectionpage/AnalysisPageView/Analysis.vue"),
+      path: "index/:id",
+      component: () => import("@/views/collectionpage/AnalysisPageView/MainAnalysisList.vue"),
       name: "analysis",
       meta: {
         title: "analysis",
@@ -131,10 +132,11 @@ export const constantRoutes = [
   },
   {
     component: Layout,
+    hidden: true,
     path: "/fill",
     children: [{
-      path: "index",
-      component: () => import("@/views/fillinpage/FillInPageView/FillIn.vue"),
+      path: "index/:id",
+      component: () => import("@/views/fillPage/FillIn"),
       name: "Fill",
       meta: {
         title: "Fill",

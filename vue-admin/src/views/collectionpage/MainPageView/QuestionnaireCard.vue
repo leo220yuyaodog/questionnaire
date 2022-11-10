@@ -19,12 +19,12 @@
         <el-link
           class="copy-link"
           target="_blank"
-          :data-clipboard-text="this.servername+'/fillin/'+this.id"
+          :data-clipboard-text="servername+'/fill/index/'+this.id"
           data-clipboard-action="copy"
           type="primary"
           @click="copy"
         >
-          {{ this.title }}-点击复制
+          {{ title }}-点击复制
         </el-link>
       </div>
       <div class="description-box">
@@ -79,10 +79,11 @@
 </template>
 
 <script>
-import Clipboard from 'clipboard'
-
+import Clipboard from "clipboard"
+import * as config from "@/config"
+import { ServerUrl } from "@/config"
 export default {
-  name: 'QuestionnaireCard',
+  name: "QuestionnaireCard",
   props: {
     id: Number,
     title: String,
@@ -94,62 +95,63 @@ export default {
   },
   data: function() {
     return {
+      servername: config.ServerUrl,
       dialogOutlineDataVisible: false,
       deleteVisible: false,
       translateLabel: {
-        'collecting': '收集中',
-        'editing': '编辑中',
-        'closed': '已关闭'
+        "collecting": "收集中",
+        "editing": "编辑中",
+        "closed": "已关闭"
       }
     }
   },
   methods: {
     gotoAnalysis() {
-      const success = this.$router.push('/analysis/' + this.id)
+      const success = this.$router.push("/analysis/index/" + this.id)
       if (!success) {
-        console.log('analysis error')
+        console.log("analysis error")
       }
     },
     gotoEdit() {
-      const success = this.$router.push('/create/' + this.id)
+      const success = this.$router.push("/create/index/" + this.id)
       if (!success) {
-        console.log('analysis error')
+        console.log("analysis error")
       }
     },
 
     deleteQuestionnaire() {
       this.deleteVisible = false
       this.dialogOutlineDataVisible = false
-      this.axios.get('/api/deleteQuestionnaire', { params: { questionnaireId: this.id }}).then((response) => {
+      this.axios.get(ServerUrl + "/api/deleteQuestionnaire", { params: { questionnaireId: this.id }}).then((response) => {
         console.log(response)
-        this.$emit('deleteQuestionnaire')
+        this.$emit("deleteQuestionnaire")
       })
     },
     copy() {
-      const clipboard = new Clipboard('.copy-link')
-      clipboard.on('success', e => {
-        console.log('复制成功')
-        this.$message({ message: '复制成功', duration: 1000 })
+      const clipboard = new Clipboard(".copy-link")
+      clipboard.on("success", e => {
+        console.log("复制成功")
+        this.$message({ message: "复制成功", duration: 1000 })
         // 释放内存
         clipboard.destroy()
       })
-      clipboard.on('error', e => {
+      clipboard.on("error", e => {
         // 不支持复制
-        console.log('该浏览器不支持自动复制')
+        console.log("该浏览器不支持自动复制")
         // 释放内存
         clipboard.destroy()
       })
     },
 
     gotoFillIn() {
-      const routeData = this.$router.resolve('/fillin/' + this.id)
-      window.open(routeData.href, '_blank')
+      const routeData = this.$router.resolve("/fill/index/" + this.id)
+      window.open(routeData.href, "_blank")
     },
     closeForm() {
-      this.axios.post('/api/closeQuestionnaire?questionnaireId=' + this.id).then(() => {
-        this.$message({ message: '已成功关闭', duration: 1000 })
+      this.axios.post(ServerUrl + "/api/closeQuestionnaire?questionnaireId=" + this.id).then(() => {
+        this.$message({ message: "已成功关闭", duration: 1000 })
       }).catch(() => {
-        this.$message.error({ message: 'error！关闭失败！', duration: 1000 })
+        this.$message.error({ message: "error！关闭失败！", duration: 1000 })
       })
     }
   }

@@ -7,6 +7,8 @@ import com.starvey.service.CreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 
 @RestController
 public class CreateController {
@@ -17,7 +19,7 @@ public class CreateController {
     private Gson gson = new Gson();
 
     @GetMapping("/api/createQuestionnaire")
-    public String createQuestionnaire(@RequestParam String username) {
+    public String createQuestionnaire(@PathParam("username") String username) {
         return createService.createQuestionnaire(username);
     }
 
