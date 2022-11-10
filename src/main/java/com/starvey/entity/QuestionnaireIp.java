@@ -5,26 +5,20 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
  * 
- * @TableName answer
+ * @TableName questionnaire_ip
  */
-@TableName(value ="answer")
+@TableName(value ="questionnaire_ip")
 @Data
-public class Answer implements Serializable {
+public class QuestionnaireIp implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer answerId;
-
-    /**
-     * 
-     */
-    private Date fillTime;
+    private Integer id;
 
     /**
      * 
@@ -34,22 +28,7 @@ public class Answer implements Serializable {
     /**
      * 
      */
-    private Integer questionId;
-
-    /**
-     * 
-     */
-    private String questionTitle;
-
-    /**
-     * 
-     */
-    private String questionType;
-
-    /**
-     * 
-     */
-    private String writeValue;
+    private Integer questionnaireId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
