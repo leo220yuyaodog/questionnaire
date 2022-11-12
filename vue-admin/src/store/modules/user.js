@@ -6,11 +6,22 @@ import { CasdoorSdk, ServerUrl } from "@/config"
 import { Message } from "element-ui"
 import router from "@/router"
 
+const user = {
+  name: "张三",
+
+}
+const admin = {
+
+}
+const superAdmin = {
+
+}
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: "",
-    avatar: ""
+    avatar: "",
+    rule: "user"
   }
 }
 

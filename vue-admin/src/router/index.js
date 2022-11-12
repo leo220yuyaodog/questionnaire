@@ -77,7 +77,7 @@ export const constantRoutes = [
   },
 
   {
-    path: "/form",
+    path: "/user",
     component: Layout,
     children: [
       {
@@ -111,7 +111,7 @@ export const constantRoutes = [
       component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
       name: "collection",
       meta: {
-        title: "collection",
+        title: "Collection",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
@@ -130,9 +130,15 @@ export const constantRoutes = [
       }
     }]
   },
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
   {
     component: Layout,
-    hidden: true,
     path: "/fill",
     children: [{
       path: "index/:id",
@@ -140,7 +146,8 @@ export const constantRoutes = [
       name: "Fill",
       meta: {
         title: "Fill",
-        noCache: true // 不会被 <keep-alive> 缓存
+        noCache: true, // 不会被 <keep-alive> 缓存
+        rules: ["editor", "admin"]
       }
     }]
   },
@@ -150,7 +157,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  mode: "history", // require service support
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
