@@ -75,19 +75,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-  {
-    path: "/user",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        name: "User",
-        component: () => import("@/views/UserList"),
-        meta: { title: "User", icon: "form" }
-      }
-    ]
-  },
   {
     component: Layout,
     hidden: true,
@@ -105,19 +92,6 @@ export const constantRoutes = [
 
   {
     component: Layout,
-    path: "/collection",
-    children: [{
-      path: "index",
-      component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
-      name: "collection",
-      meta: {
-        title: "Collection",
-        noCache: true // 不会被 <keep-alive> 缓存
-      }
-    }]
-  },
-  {
-    component: Layout,
     hidden: true,
     path: "/analysis",
     children: [{
@@ -130,6 +104,20 @@ export const constantRoutes = [
       }
     }]
   },
+  {
+    component: Layout,
+    path: "/fill",
+    hidden: true,
+    children: [{
+      path: "index/:id",
+      component: () => import("@/views/fillPage/FillIn"),
+      name: "Fill",
+      meta: {
+        title: "Fill",
+        noCache: true // 不会被 <keep-alive> 缓存
+      }
+    }]
+  }
 ]
 
 /**
@@ -139,17 +127,33 @@ export const constantRoutes = [
 export const asyncRoutes = [
   {
     component: Layout,
-    path: "/fill",
+    path: "/collection",
     children: [{
-      path: "index/:id",
-      component: () => import("@/views/fillPage/FillIn"),
-      name: "Fill",
+      path: "index",
+      component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
+      name: "collection",
       meta: {
-        title: "Fill",
+        title: "Collection",
         noCache: true, // 不会被 <keep-alive> 缓存
-        rules: ["editor", "admin"]
+        rules: ["editor"]
       }
     }]
+  },
+  {
+    path: "/user",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "User",
+        component: () => import("@/views/UserList"),
+        meta: {
+          title: "User",
+          icon: "form",
+          rules: ["admin"]
+        }
+      }
+    ]
   },
 
   // 404 page must be placed at the end !!!
@@ -157,7 +161,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: "history", // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
