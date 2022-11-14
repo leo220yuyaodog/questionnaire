@@ -7,7 +7,7 @@
           type="primary"
           icon="el-icon-plus"
           size="small"
-          @click="gotoCreate"
+          @click="dialogTableVisible = true"
         >创建问卷
         </el-button>
       </el-col>
@@ -46,6 +46,32 @@
         </el-col>
       </el-row>
     </div>
+    <el-dialog title="创建方式" :visible.sync="dialogTableVisible">
+      <ElRow
+        type="flex"
+        style="flex-direction: row;justify-content: space-around;"
+      >
+        <ElCol span="7">
+          <ElCard>
+            <div slot="header" class="clearfix">
+              <el-button type="primary" @click="gotoCreate">从模板传建</el-button>
+            </div>
+          </ElCard>
+        </ElCol>
+        <ElCol span="7">
+          <ElCard>
+            <div slot="header" class="clearfix">
+              <el-button type="primary" @click="gotoCreate">从问题库创建</el-button>            </div>
+          </ElCard>
+        </ElCol>
+        <ElCol span="7">
+          <ElCard>
+            <div slot="header" class="clearfix">
+              <el-button type="primary" @click="gotoCreate">自定义</el-button>            </div>
+          </ElCard>
+        </ElCol>
+      </ElRow>
+    </el-dialog>
   </div>
 </template>
 
@@ -61,7 +87,25 @@ export default {
   data: function() {
     return {
       questionnaireList: [],
-      checkedList: ["collecting", "editing", "closed"]
+      checkedList: ["collecting", "editing", "closed"],
+      gridData: [{
+        date: "2016-05-02",
+        name: "王小虎",
+        address: "上海市普陀区金沙江路 1518 弄"
+      }, {
+        date: "2016-05-04",
+        name: "王小虎",
+        address: "上海市普陀区金沙江路 1518 弄"
+      }, {
+        date: "2016-05-01",
+        name: "王小虎",
+        address: "上海市普陀区金沙江路 1518 弄"
+      }, {
+        date: "2016-05-03",
+        name: "王小虎",
+        address: "上海市普陀区金沙江路 1518 弄"
+      }],
+      dialogTableVisible: false
     }
   },
   mounted() {

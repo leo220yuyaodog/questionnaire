@@ -60,7 +60,45 @@ export const constantRoutes = [
       meta: { title: "Dashboard", icon: "dashboard" }
     }]
   },
-
+  {
+    component: Layout,
+    path: "/",
+    children: [{
+      path: "group",
+      component: () => import("@/views/GroupList"),
+      name: "Group",
+      meta: {
+        title: "群组管理",
+        noCache: true // 不会被 <keep-alive> 缓存
+      }
+    }]
+  },
+  {
+    component: Layout,
+    path: "/",
+    children: [{
+      path: "tenant",
+      component: () => import("@/views/TenantList"),
+      name: "Tenant",
+      meta: {
+        title: "租户管理",
+        noCache: true // 不会被 <keep-alive> 缓存
+      }
+    }]
+  },
+  {
+    component: Layout,
+    path: "/",
+    children: [{
+      path: "answerer",
+      component: () => import("@/views/AnswererList"),
+      name: "answerer",
+      meta: {
+        title: "答者管理",
+        noCache: true // 不会被 <keep-alive> 缓存
+      }
+    }]
+  },
   {
     path: "/bill",
     component: Layout,
@@ -71,7 +109,7 @@ export const constantRoutes = [
         path: "index",
         name: "Table",
         component: () => import("@/views/BillList"),
-        meta: { title: "Bill", icon: "table" }
+        meta: { title: "计费管理", icon: "table" }
       }
     ]
   },
@@ -84,7 +122,7 @@ export const constantRoutes = [
       component: () => import("@/views/createpage/CreatePageView/Create.vue"),
       name: "create",
       meta: {
-        title: "create",
+        title: "创建问卷",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
@@ -99,7 +137,7 @@ export const constantRoutes = [
       component: () => import("@/views/collectionpage/AnalysisPageView/MainAnalysisList.vue"),
       name: "analysis",
       meta: {
-        title: "analysis",
+        title: "答卷分析",
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
@@ -113,8 +151,36 @@ export const constantRoutes = [
       component: () => import("@/views/fillPage/FillIn"),
       name: "Fill",
       meta: {
-        title: "Fill",
+        title: "问卷填写",
         noCache: true // 不会被 <keep-alive> 缓存
+      }
+    }]
+  },
+  {
+    component: Layout,
+    path: "/collection",
+    children: [{
+      path: "index",
+      component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
+      name: "collection",
+      meta: {
+        title: "问卷管理",
+        noCache: true, // 不会被 <keep-alive> 缓存
+        roles: ["editor"]
+      }
+    }]
+  },
+  {
+    component: Layout,
+    path: "/questions",
+    children: [{
+      path: "index",
+      component: () => import("@/views/QuestionList"),
+      name: "Question",
+      meta: {
+        title: "问题库",
+        noCache: true, // 不会被 <keep-alive> 缓存
+        roles: ["editor"]
       }
     }]
   }
@@ -126,20 +192,6 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    component: Layout,
-    path: "/collection",
-    children: [{
-      path: "index",
-      component: () => import("@/views/collectionpage/MainPageView/Collection.vue"),
-      name: "collection",
-      meta: {
-        title: "Collection",
-        noCache: true, // 不会被 <keep-alive> 缓存
-        rules: ["editor"]
-      }
-    }]
-  },
-  {
     path: "/user",
     component: Layout,
     children: [
@@ -150,7 +202,7 @@ export const asyncRoutes = [
         meta: {
           title: "User",
           icon: "form",
-          rules: ["admin"]
+          roles: ["admin"]
         }
       }
     ]

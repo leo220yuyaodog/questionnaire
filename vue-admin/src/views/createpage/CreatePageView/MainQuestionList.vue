@@ -8,7 +8,6 @@
               <h1>{{ questionnaire.questionnaireTitle }}</h1>
               <h3>{{ questionnaire.questionnaireDescription }}</h3>
             </div>
-
             <div class="edit-icon"><i class="el-icon-edit-outline" /></div>
           </div>
           <div v-if="questionnaire.isBoxSelected===true">
@@ -29,7 +28,6 @@
                   placeholder="请输入问卷描述"
                 />
               </el-form-item>
-
               <el-form-item>
                 <el-button type="primary" @click="saveQuestionnaireTitle">保存</el-button>
                 <el-button @click="resetQuestionnaireTitle">重置</el-button>
@@ -38,7 +36,6 @@
           </div>
         </el-card>
       </div>
-      <div style="height: 10px" />
 
       <Question
         v-for="(item,index) in questionList"
@@ -337,9 +334,10 @@ export default {
 
 <style scoped>
     .main-question-list {
-        height: 100%;
-        background-color: white;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      height: 100%;
+      background-color: white;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
     }
 
     .add-question-inner {
