@@ -13,12 +13,11 @@
             <result property="role" column="role" jdbcType="INTEGER"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,tenant_id,username,
         password,phone_num,role,
-        email,avatar,is_deleted
+        email,avatar
     </sql>
 </mapper>

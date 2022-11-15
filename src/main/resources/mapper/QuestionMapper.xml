@@ -5,19 +5,18 @@
 <mapper namespace="com.starvey.mapper.QuestionMapper">
 
     <resultMap id="BaseResultMap" type="com.starvey.entity.Question">
-            <id property="id" column="id" jdbcType="VARCHAR"/>
-            <result property="questionnaireId" column="questionnaire_id" jdbcType="VARCHAR"/>
-            <result property="order" column="order" jdbcType="INTEGER"/>
-            <result property="isNecessary" column="is_necessary" jdbcType="TINYINT"/>
-            <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
+            <id property="questionId" column="question_id" jdbcType="INTEGER"/>
+            <result property="details" column="details" jdbcType="VARCHAR"/>
             <result property="questionDescription" column="question_description" jdbcType="VARCHAR"/>
-            <result property="content" column="content" jdbcType="VARCHAR"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="questionNullable" column="question_nullable" jdbcType="BIT"/>
+            <result property="questionTitle" column="question_title" jdbcType="VARCHAR"/>
+            <result property="questionType" column="question_type" jdbcType="VARCHAR"/>
+            <result property="questionnaireId" column="questionnaire_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,questionnaire_id,order,
-        is_necessary,question_type,question_description,
-        content,is_deleted
+        question_id,details,question_description,
+        question_nullable,question_title,question_type,
+        questionnaire_id
     </sql>
 </mapper>
