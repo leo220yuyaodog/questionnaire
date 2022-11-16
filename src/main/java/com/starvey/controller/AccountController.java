@@ -28,7 +28,7 @@ public class AccountController {
     @Resource
     private CasdoorAuthService casdoorAuthService;
 
-    @PostMapping("signin")
+    @PostMapping("/api/signin")
     public Result signin(@RequestParam String code, @RequestParam String state, HttpSession session) {
         String token = "";
         CasdoorUser user = null;

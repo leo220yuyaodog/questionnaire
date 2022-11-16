@@ -57,7 +57,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '控制台', icon: 'dashboard' }
     }]
   },
   {
@@ -87,7 +87,7 @@ export const constantRoutes = [
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
-  },
+  }
 ]
 
 /**
@@ -95,22 +95,6 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  {
-    path: '/user',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'User',
-        component: () => import('@/views/UserList'),
-        meta: {
-          title: 'User',
-          icon: 'form',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
   {
     component: Layout,
     path: '/',
@@ -121,6 +105,7 @@ export const asyncRoutes = [
       meta: {
         roles: ['editor'],
         title: '群组管理',
+        icon: 'table',
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
@@ -135,9 +120,26 @@ export const asyncRoutes = [
       meta: {
         roles: ['super'],
         title: '租户管理',
+        icon: 'user',
         noCache: true // 不会被 <keep-alive> 缓存
       }
     }]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'User',
+        component: () => import('@/views/UserList'),
+        meta: {
+          title: '用户管理',
+          icon: 'user',
+          roles: ['admin', 'super']
+        }
+      }
+    ]
   },
   {
     component: Layout,
@@ -148,6 +150,7 @@ export const asyncRoutes = [
       name: 'answerer',
       meta: {
         roles: ['editor'],
+        icon: 'user',
         title: '答者管理',
         noCache: true // 不会被 <keep-alive> 缓存
       }
@@ -163,7 +166,7 @@ export const asyncRoutes = [
         path: 'index',
         name: 'Table',
         component: () => import('@/views/BillList'),
-        meta: { title: '计费管理', icon: 'table', roles: ['editor']}
+        meta: { title: '计费管理', icon: 'table', roles: ['admin', 'super'] }
       }
     ]
   },
@@ -177,7 +180,8 @@ export const asyncRoutes = [
       name: 'create',
       meta: {
         title: '创建问卷',
-        noCache: true,// 不会被 <keep-alive> 缓存
+        icon: 'table',
+        noCache: true, // 不会被 <keep-alive> 缓存
         roles: ['editor']
       }
     }]
@@ -191,6 +195,7 @@ export const asyncRoutes = [
       name: 'collection',
       meta: {
         title: '问卷管理',
+        icon: 'form',
         noCache: true, // 不会被 <keep-alive> 缓存
         roles: ['editor']
       }
@@ -206,7 +211,8 @@ export const asyncRoutes = [
       meta: {
         title: '问题库',
         noCache: true, // 不会被 <keep-alive> 缓存
-        roles: ['editor','admin']
+        icon: 'link',
+        roles: ['editor', 'admin']
       }
     }]
   },

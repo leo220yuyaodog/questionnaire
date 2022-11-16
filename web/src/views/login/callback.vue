@@ -8,17 +8,31 @@ export default {
   name: 'Callback',
   data() {
     return {
-      loading: false
+      loading: false,
+      loginForm: {
+        username: 'admin',
+        password: '111111'
+      }
     }
   },
-  created() {
+  mounted() {
     this.callback()
   },
 
   methods: {
     callback() {
       this.loading = true
-      this.$store.dispatch('user/signin').then(() => {
+      this.$store.dispatch('user/signin').then((res) => {
+        console.log(res)
+        this.$store.dispatch('user/login', {
+          username: res.name,
+          password: '111111'
+        }).then(() => {
+          this.$router.push({ path: this.redirect || '/' })
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
         this.loading = false
       }).catch(() => {
         this.loading = false

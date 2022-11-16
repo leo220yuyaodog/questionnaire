@@ -107,9 +107,52 @@
 
         <el-button type="danger" @click="deleteVisible = true">删 除</el-button>
         <el-button @click="saveQuestionnaire">保 存</el-button>
-        <el-button type="primary" @click="releaseQuestionnaire">发 布</el-button>
+        <el-button type="primary" @click="dialogTableVisible = true">发布</el-button>
       </el-card>
+      <el-dialog title="发布设置" :visible.sync="dialogTableVisible">
+        <ElRow style="margin-top: 20px" align="middle">
+          <ElCol span="2">
+            <label>答卷次数</label>
+          </ElCol>
+          <ElCol span="22">
+            <el-input-number v-model="num" :min="1" :max="200" @change="handleChange" />
+          </ElCol>
+        </ElRow>
+        <ElRow style="margin-top: 20px">
+          <ElCol span="2">
+            <label>群组选择</label>
+          </ElCol>
+          <ElCol span="22">
+            <el-select
+              v-model="value"
+              multiple
+              filterable
+              allow-create
+              default-first-option
+              placeholder="请选择答题群组"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </ElCol>
+        </ElRow>
+        <ElRow style="margin-top: 20px">
+          <ElCol span="2">
+            <label>面向公众</label>
+          </ElCol>
+          <el-switch
+            v-model="open"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+          />
+        </ElRow>
+        <el-button type="primary" style="margin-top: 20px" @click="releaseQuestionnaire">发 布</el-button>
 
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -125,6 +168,20 @@ export default {
 
   data: function() {
     return {
+      dialogTableVisible: false,
+      num: 10,
+      options: [{
+        value: '群组1',
+        label: '群组1'
+      }, {
+        value: '群组2',
+        label: '群组2'
+      }, {
+        value: '群组3',
+        label: '群组3'
+      }],
+      value: [],
+      open: false,
       servername: servername,
       questionList: [],
       questionnaire: {

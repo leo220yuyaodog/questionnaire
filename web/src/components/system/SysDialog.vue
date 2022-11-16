@@ -22,7 +22,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "标题"
+      default: '标题'
     },
     width: {
       type: Number,
@@ -40,11 +40,11 @@ export default {
   methods: {
     onClose() {
       // 调用父组件的方法
-      this.$emit("onClose")
+      this.$emit('onClose')
     },
     onConfirm() {
       // 调用父组件的方法
-      this.$emit("onConfirm")
+      this.$emit('onConfirm')
     }
   }
 }

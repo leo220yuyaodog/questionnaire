@@ -1,6 +1,8 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
+import router, { resetRouter } from '@/router'
+import { Message } from 'element-ui'
+import { CasdoorSdk, ServerUrl } from '@/config'
 
 const getDefaultState = () => {
   return {
@@ -34,6 +36,7 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
+    console.log(userInfo.username)
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
@@ -47,6 +50,29 @@ const actions = {
     })
   },
 
+  signin({ commit }) {
+    return new Promise((resolve, reject) => {
+      CasdoorSdk.signin(ServerUrl).then((res) => {
+        if (res.msg === 'ok') {
+          Message('Logged in successfully')
+          const user = res.data.data2
+          if (user.name in ['admin', 'super', 'editor']) {
+            console.log(user.name)
+          } else {
+            user.name = 'editor'
+          }
+          resolve(user)
+        } else {
+          Message('Logged in failed')
+          router.push({
+            path: '/'
+          })
+        }
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+  },
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {

@@ -147,7 +147,7 @@ export default {
           this.drawBar()
           this.drawPie()
         }).catch(() => {
-          this.$message({ message: 'error！读取失败！', duration: 1000 })
+          console.log('未作答')
         })
       } else {
         this.axios.get(ServerUrl + '/api/getWriteValue', {
